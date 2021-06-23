@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+//import 'package:flutter_config/flutter_config.dart';
 import 'package:liveasy_admin/screens/LoginScreen.dart';
 import 'package:liveasy_admin/screens/dashboardScreen.dart';
 import 'package:liveasy_admin/screens/errorScreen.dart';
@@ -10,7 +10,7 @@ import 'package:liveasy_admin/services/authentication.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await dotenv.load(fileName: ".env");
+//  await FlutterConfig.loadEnvVariables();
   runApp(LiveasyAdmin());
 }
 
@@ -32,13 +32,13 @@ class _LiveasyAdminState extends State<LiveasyAdmin> {
               return GetMaterialApp(
                 title: "Liveasy Admin",
                 theme: ThemeData(fontFamily: 'montserrat'),
-                home: LoginScreen(),
+                home: Dashboard(userData: Authentication.userData),
               );
             } else {
               return GetMaterialApp(
                 title: "Liveasy Admin",
                 theme: ThemeData(fontFamily: 'montserrat'),
-                home: Dashboard(userData: Authentication.userData),
+                home: LoginScreen(),
               );
             }
           } else {
