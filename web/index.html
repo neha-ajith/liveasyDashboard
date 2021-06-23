@@ -20,17 +20,38 @@
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="liveasydashboard">
+  <meta name="apple-mobile-web-app-title" content="liveasy_admin">
+  
+  <meta name="google-signin-client_id" content="530688221567-ldmmpo2546ttd0acrng5rg954v7lkt84.apps.googleusercontent.com">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
-
-  <title>liveasydashboard</title>
+  <title>liveasy_admin</title>
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
-  <script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAcds5JmutI4XhI3qVTNZ58nP0YPOdZiJ4",
+    authDomain: "liveasydashboard.firebaseapp.com",
+    projectId: "liveasydashboard",
+    storageBucket: "liveasydashboard.appspot.com",
+    messagingSenderId: "530688221567",
+    appId: "1:530688221567:web:3a8f20478a85d4feab3a4a"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+<script>
     var serviceWorkerVersion = null;
     var scriptLoaded = false;
     function loadMainDartJs() {
