@@ -3,7 +3,6 @@ class ShipperDetailsModal {
   double? phoneNo;
   String? shipperName;
   String? companyName;
-  String? kyc;
   String? shipperLocation;
   bool? shipperApproved;
   bool? companyApproved;
@@ -14,7 +13,6 @@ class ShipperDetailsModal {
       this.phoneNo,
       this.shipperName,
       this.companyName,
-      this.kyc,
       this.shipperLocation,
       this.shipperApproved,
       this.companyApproved,

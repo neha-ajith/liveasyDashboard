@@ -4,7 +4,6 @@ class TransporterDetailsModal {
   String? transporterName;
   String? companyName;
   String? transporterLocation;
-  String? kyc;
   bool? transporterApproved;
   bool? companyApproved;
   bool? accountVerificationInProgress;
@@ -15,7 +14,6 @@ class TransporterDetailsModal {
       this.transporterName,
       this.companyName,
       this.transporterLocation,
-      this.kyc,
       this.transporterApproved,
       this.companyApproved,
       this.accountVerificationInProgress});

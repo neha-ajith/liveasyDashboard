@@ -25,8 +25,11 @@ double width_67 = 46.52777778;
 double width_68 = 47.22222222;
 double width_73 = 50.69444444;
 double width_86 = 59.72222222;
+double width_345 = 239.5833333;
 double width_449 = 311.8055556;
 double width_584 = 405.5555556;
 
 double radius_30 = 22;
 double radius_25 = 16;
+
+double emailTextbox = 308.8765;

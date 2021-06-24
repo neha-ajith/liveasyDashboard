@@ -25,7 +25,7 @@ class Authentication {
     );
   }
 
-  static Future<String?> getUser() async {
+  static Future<List<String?>?> getUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool authSignedIn = prefs.getBool('auth') ?? false;
     final User? user = _auth.currentUser;
@@ -34,16 +34,18 @@ class Authentication {
       name = user.displayName;
       userEmail = user.email;
       imageUrl = user.photoURL;
-      print('$userUid $name $userEmail $imageUrl');
       userData.addAll([userUid, name, userEmail, imageUrl]);
-      return "Pass";
+      return userData;
     } else {
       return null;
     }
   }
 
   static void signInWithEmail(
-      {required BuildContext context, email, password}) async {
+      {required BuildContext context,
+      required email,
+      required password,
+      required keepLoggedIn}) async {
     User? user;
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
@@ -52,10 +54,11 @@ class Authentication {
       if (user != null) {
         userUid = user.uid;
         userEmail = user.email;
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setBool('auth', true);
-        userData.add(userUid);
-        userData.add(name);
+        if (keepLoggedIn) {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setBool('auth', true);
+        }
+        userData.addAll([userUid, userEmail]);
         Get.to(() => Dashboard(userData: userData));
       }
     } on FirebaseAuthException catch (e) {
@@ -69,41 +72,37 @@ class Authentication {
 
   static Future<void> signOut() async {
     await _auth.signOut();
-
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('auth', false);
 
     userUid = null;
     userEmail = null;
-    print('User signed out');
     customSnackBar(content: 'User signed out');
     Get.to(() => LoginScreen());
   }
 
-  static void signInWithGoogle({required BuildContext context}) async {
+  static void signInWithGoogle(
+      {required BuildContext context, required keepLoggedIn}) async {
     User? user;
-    // ignore: unused_local_variable
-    GoogleSignIn _googleSignIn = GoogleSignIn(scopes: [
-      'email',
-      'https://www.googleapis.com/auth/contacts.readonly',
-    ]);
     GoogleAuthProvider authProvider = GoogleAuthProvider();
     try {
       final UserCredential userCredential =
           await _auth.signInWithPopup(authProvider);
       user = userCredential.user;
+      if (user != null) {
+        userUid = user.uid;
+        name = user.displayName;
+        userEmail = user.email;
+        imageUrl = user.photoURL;
+        if (keepLoggedIn) {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setBool('auth', true);
+        }
+        userData.addAll([userUid, name, userEmail, imageUrl]);
+        Get.to(() => Dashboard(userData: userData));
+      }
     } catch (e) {
-      print(e);
-    }
-    if (user != null) {
-      userUid = user.uid;
-      name = user.displayName;
-      userEmail = user.email;
-      imageUrl = user.photoURL;
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setBool('auth', true);
-      userData.addAll([userUid, name, userEmail, imageUrl]);
-      Get.to(() => Dashboard(userData: userData));
+      customSnackBar(content: '$e');
     }
   }
 
@@ -117,7 +116,6 @@ class Authentication {
     name = null;
     userEmail = null;
     imageUrl = null;
-    print("User signed out of Google account");
     customSnackBar(content: "User signed out of Google account");
     Get.to(() => LoginScreen());
   }

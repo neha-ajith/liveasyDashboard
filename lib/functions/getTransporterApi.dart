@@ -4,7 +4,7 @@ import 'package:liveasy_admin/models/transporterApiModel.dart';
 import 'package:flutter_config/flutter_config.dart';
 
 Future<List<TransporterDetailsModal>> runGetTransporterApi(
-    bool transporterApproved) async {
+    bool compantApproved) async {
   var jsonData;
   List<TransporterDetailsModal> card = [];
 
@@ -20,7 +20,6 @@ Future<List<TransporterDetailsModal>> runGetTransporterApi(
     transporterDetailsModel.transporterName = json["transporterName"];
     transporterDetailsModel.companyName = json["companyName"];
     transporterDetailsModel.transporterLocation = json["transporterLocation"];
-    transporterDetailsModel.kyc = json["kyc"];
     transporterDetailsModel.transporterApproved = json["transporterApproved"];
     transporterDetailsModel.companyApproved = json["companyApproved"];
     transporterDetailsModel.accountVerificationInProgress =

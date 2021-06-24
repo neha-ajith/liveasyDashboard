@@ -3,10 +3,9 @@ import 'package:liveasy_admin/constants/borderWidth.dart';
 import 'package:liveasy_admin/constants/color.dart';
 import 'package:liveasy_admin/constants/fontSize.dart';
 import 'package:liveasy_admin/constants/fontWeight.dart';
-//import 'package:liveasy_admin/constants/screenSize.dart';
+import 'package:liveasy_admin/constants/screenSize.dart';
 import 'package:liveasy_admin/constants/space.dart';
 import 'package:liveasy_admin/services/authentication.dart';
-//import 'package:google_fonts/google_fonts.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends StatefulWidget {
@@ -20,62 +19,86 @@ class _LoginScreenState extends State<LoginScreen> {
   final FocusNode textFocusNodeEmail = FocusNode();
   final FocusNode textFocusNodePassword = FocusNode();
   bool _isEditingEmail = false;
-  bool keeploggedin = false;
-  // ignore: unused_field
-  List _isHovering = [false, false, false, false];
+  bool keepLoggedIn = false;
+  //List _isHovering = [false, false, false, false];
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData mediaQueryData = MediaQuery.of(context);
-    double screenWidth = mediaQueryData.size.width;
-    double screenHeight = mediaQueryData.size.height;
-    double _safeAreaHorizontal =
-        mediaQueryData.padding.left + mediaQueryData.padding.right;
-    double _safeAreaVertical =
-        mediaQueryData.padding.top + mediaQueryData.padding.bottom;
-    double safeBlockHorizontal = (screenWidth - _safeAreaHorizontal) / 1000;
-    double safeBlockVertical = (screenHeight - _safeAreaVertical) / 1000;
+    SizeConfig().init(context);
+    double safeBlockHorizontal = SizeConfig.safeBlockHorizontal!;
+    double safeBlockVertical = SizeConfig.safeBlockVertical!;
 
     _buildTextField(String type, TextEditingController controller,
         FocusNode focusNode, String labelText) {
       return Container(
         height: safeBlockVertical * height_71, //71
         width: safeBlockHorizontal * width_449, //449
-        padding: EdgeInsets.only(
-            left: safeBlockHorizontal * width_31, //31
-            top: safeBlockVertical * height_17, //17
-            bottom: safeBlockVertical * height_17), //17
         decoration: BoxDecoration(
             color: white,
             borderRadius: BorderRadius.circular(radius_25),
             border: Border.all(color: greyBorderColor.withOpacity(0.30))),
-        child: TextField(
-          focusNode: focusNode,
-          obscureText: type == "Email" ? false : true,
-          keyboardType:
-              type == "Email" ? TextInputType.emailAddress : TextInputType.text,
-          textInputAction: TextInputAction.next,
-          controller: controller,
-          onChanged: (value) {
-            setState(() {
-              _isEditingEmail = !_isEditingEmail;
-            });
-          },
-          onSubmitted: type == "Email"
-              ? (value) {
-                  textFocusNodeEmail.unfocus();
-                  FocusScope.of(context).requestFocus(textFocusNodePassword);
-                }
-              : (value) {},
-          style: TextStyle(
-              color: black, fontSize: input_size, fontWeight: regularWeight),
-          decoration: InputDecoration(
-              hintText: labelText,
-              hintStyle: TextStyle(
-                  fontSize: hint_text,
-                  fontWeight: regularWeight,
-                  color: black.withOpacity(0.30)),
-              border: InputBorder.none),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              height: safeBlockVertical * height_71, //71
+              width: type == "Email"
+                  ? safeBlockHorizontal * emailTextbox
+                  : safeBlockHorizontal * width_345, //449 or 345
+              padding: EdgeInsets.only(
+                  left: safeBlockHorizontal * width_31, //31
+                  top: safeBlockVertical * height_17, //17
+                  bottom: safeBlockVertical * height_17), //17
+              child: TextField(
+                focusNode: focusNode,
+                obscureText: type == "Email" ? false : true,
+                keyboardType: type == "Email"
+                    ? TextInputType.emailAddress
+                    : TextInputType.text,
+                textInputAction: TextInputAction.next,
+                controller: controller,
+                onChanged: (value) {
+                  setState(() {
+                    _isEditingEmail = !_isEditingEmail;
+                  });
+                },
+                onSubmitted: type == "Email"
+                    ? (value) {
+                        textFocusNodeEmail.unfocus();
+                        FocusScope.of(context)
+                            .requestFocus(textFocusNodePassword);
+                      }
+                    : (value) {},
+                style: TextStyle(
+                    color: black,
+                    fontSize: input_size,
+                    fontWeight: regularWeight),
+                decoration: InputDecoration(
+                    hintText: labelText,
+                    hintStyle: TextStyle(
+                        fontSize: hint_text,
+                        fontWeight: regularWeight,
+                        color: black.withOpacity(0.30)),
+                    border: InputBorder.none),
+              ),
+            ),
+            if (type == "Password")
+              Container(
+                width: safeBlockHorizontal * 53.47222222,
+                decoration: BoxDecoration(
+                    color: white,
+                    border:
+                        Border.all(color: greyBorderColor.withOpacity(0.30))),
+                padding: EdgeInsets.zero,
+                child: TextButton(
+                    onPressed: () {},
+                    child: Text("Forgot?",
+                        style: TextStyle(
+                            color: forgotColor,
+                            fontWeight: regularWeight,
+                            fontSize: forgot))),
+              )
+          ],
         ),
       );
     }
@@ -143,9 +166,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           left: safeBlockHorizontal * width_18), //18
                       child: Row(children: [
                         Checkbox(
-                            value: keeploggedin,
-                            onChanged: (keeploggedin) {
-                              keeploggedin = keeploggedin;
+                            value: keepLoggedIn,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                keepLoggedIn = value!;
+                              });
                             }),
                         SizedBox(width: safeBlockHorizontal * width_7),
                         Text('Keep me logged in',
@@ -168,7 +193,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             Authentication.signInWithEmail(
                                 context: context,
                                 email: _emailController.text.trim(),
-                                password: _passwordController.text.trim());
+                                password: _passwordController.text.trim(),
+                                keepLoggedIn: keepLoggedIn);
                           },
                           child: Text('Sign in',
                               style: TextStyle(
@@ -183,7 +209,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: safeBlockHorizontal * width_449,
                       child: MaterialButton(
                           onPressed: () {
-                            Authentication.signInWithGoogle(context: context);
+                            Authentication.signInWithGoogle(
+                                context: context, keepLoggedIn: keepLoggedIn);
                           },
                           shape: RoundedRectangleBorder(
                               side: BorderSide(color: signInColor),

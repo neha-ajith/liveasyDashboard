@@ -3,14 +3,14 @@ import 'package:http/http.dart' as http;
 import 'package:liveasy_admin/models/shipperApiModel.dart';
 import 'package:flutter_config/flutter_config.dart';
 
-Future<List<ShipperDetailsModal>> runGetTransporterApi(
-    bool shipperApproved) async {
+Future<List<ShipperDetailsModal>> runGetShipperApi(bool companyApproved) async {
+  String additionalQuery = '?companyApproved=companyApproved';
   var jsonData;
   List<ShipperDetailsModal> card = [];
 
-  final String shipperApiUrl =
-      FlutterConfig.get("transporterApiUrl").toString();
-  http.Response response = await http.get(Uri.parse("$shipperApiUrl"));
+  final String shipperApiUrl = FlutterConfig.get("shipperApiUrl").toString();
+  http.Response response =
+      await http.get(Uri.parse("$shipperApiUrl$additionalQuery"));
 
   jsonData = json.decode(response.body);
   for (var json in jsonData) {
@@ -19,7 +19,6 @@ Future<List<ShipperDetailsModal>> runGetTransporterApi(
     transporterDetailsModel.phoneNo = json["phoneNo"];
     transporterDetailsModel.shipperName = json["shipperName"];
     transporterDetailsModel.companyName = json["companyName"];
-    transporterDetailsModel.kyc = json["kyc"];
     transporterDetailsModel.shipperLocation = json["shipperLocation"];
     transporterDetailsModel.shipperApproved = json["shipperApproved"];
     transporterDetailsModel.companyApproved = json["companyApproved"];
