@@ -38,7 +38,6 @@ class _LoginScreenState extends State<LoginScreen> {
             borderRadius: BorderRadius.circular(radius_25),
             border: Border.all(color: greyBorderColor.withOpacity(0.30))),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
               height: safeBlockVertical * height_71, //71
@@ -83,21 +82,13 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             if (type == "Password")
-              Container(
-                width: safeBlockHorizontal * 53.47222222,
-                decoration: BoxDecoration(
-                    color: white,
-                    border:
-                        Border.all(color: greyBorderColor.withOpacity(0.30))),
-                padding: EdgeInsets.zero,
-                child: TextButton(
-                    onPressed: () {},
-                    child: Text("Forgot?",
-                        style: TextStyle(
-                            color: forgotColor,
-                            fontWeight: regularWeight,
-                            fontSize: forgot))),
-              )
+              TextButton(
+                  onPressed: () {},
+                  child: Text("Forgot?",
+                      style: TextStyle(
+                          color: forgotColor,
+                          fontWeight: regularWeight,
+                          fontSize: forgot)))
           ],
         ),
       );

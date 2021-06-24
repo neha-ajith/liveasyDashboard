@@ -32,4 +32,4 @@ double width_584 = 405.5555556;
 double radius_30 = 22;
 double radius_25 = 16;
 
-double emailTextbox = 308.8765;
+double emailTextbox = 300;
