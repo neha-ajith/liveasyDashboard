@@ -4,7 +4,6 @@ class ShipperDetailsModal {
   String? shipperName;
   String? companyName;
   String? shipperLocation;
-  bool? shipperApproved;
   bool? companyApproved;
   bool? accountVerificationInProgress;
 
@@ -14,7 +13,6 @@ class ShipperDetailsModal {
       this.shipperName,
       this.companyName,
       this.shipperLocation,
-      this.shipperApproved,
-      this.companyApproved,
+      this.companyApproved, //true Verified
       this.accountVerificationInProgress});
 }

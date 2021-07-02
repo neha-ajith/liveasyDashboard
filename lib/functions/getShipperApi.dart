@@ -1,30 +1,61 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:liveasy_admin/models/shipperApiModel.dart';
-import 'package:flutter_config/flutter_config.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-Future<List<ShipperDetailsModal>> runGetShipperApi(bool companyApproved) async {
-  String additionalQuery = '?companyApproved=companyApproved';
+Future<List<ShipperDetailsModal>> runGetShipperApi(choosenValue) async {
+  final String shipperApiUrl = '${dotenv.env['shipperApiUrl'].toString()}';
+  final String additionalQuery = '?companyApproved=';
+  String compApproved;
+
+  List<ShipperDetailsModal> card1 = [];
+  List<ShipperDetailsModal> card2 = [];
+  var response;
   var jsonData;
-  List<ShipperDetailsModal> card = [];
 
-  final String shipperApiUrl = FlutterConfig.get("shipperApiUrl").toString();
-  http.Response response =
-      await http.get(Uri.parse("$shipperApiUrl$additionalQuery"));
+  if (choosenValue == "All" || choosenValue == "Verified") {
+    compApproved = "true";
 
-  jsonData = json.decode(response.body);
-  for (var json in jsonData) {
-    ShipperDetailsModal transporterDetailsModel = ShipperDetailsModal();
-    transporterDetailsModel.shipperId = json["shipperId"];
-    transporterDetailsModel.phoneNo = json["phoneNo"];
-    transporterDetailsModel.shipperName = json["shipperName"];
-    transporterDetailsModel.companyName = json["companyName"];
-    transporterDetailsModel.shipperLocation = json["shipperLocation"];
-    transporterDetailsModel.shipperApproved = json["shipperApproved"];
-    transporterDetailsModel.companyApproved = json["companyApproved"];
-    transporterDetailsModel.accountVerificationInProgress =
-        json["accountVerificationInProgress"];
-    card.add(transporterDetailsModel);
+    response = await http
+        .get(Uri.parse("$shipperApiUrl$additionalQuery$compApproved"));
+
+    jsonData = json.decode(response.body);
+    for (var json in jsonData) {
+      ShipperDetailsModal shipperDetailsModel = ShipperDetailsModal();
+      shipperDetailsModel.shipperId = json["shipperId"];
+      shipperDetailsModel.phoneNo = json["phoneNo"];
+      shipperDetailsModel.shipperName = json["shipperName"];
+      shipperDetailsModel.companyName = json["companyName"];
+      shipperDetailsModel.shipperLocation = json["shipperLocation"];
+      shipperDetailsModel.companyApproved = json["companyApproved"];
+      shipperDetailsModel.accountVerificationInProgress =
+          json["accountVerificationInProgress"];
+      card1.add(shipperDetailsModel);
+    }
+    card1.reversed.toList();
   }
-  return card.reversed.toList();
+
+  if (choosenValue == "All" || choosenValue == "Pending") {
+    compApproved = "false";
+    response = await http
+        .get(Uri.parse("$shipperApiUrl$additionalQuery$compApproved"));
+    jsonData = json.decode(response.body);
+    for (var json in jsonData) {
+      if (json['accountVerificationInProgress']) {
+        ShipperDetailsModal shipperDetailsModel = ShipperDetailsModal();
+        shipperDetailsModel.shipperId = json["shipperId"];
+        shipperDetailsModel.phoneNo = json["phoneNo"];
+        shipperDetailsModel.shipperName = json["shipperName"];
+        shipperDetailsModel.companyName = json["companyName"];
+        shipperDetailsModel.shipperLocation = json["shipperLocation"];
+        shipperDetailsModel.companyApproved = json["companyApproved"];
+        shipperDetailsModel.accountVerificationInProgress =
+            json["accountVerificationInProgress"];
+        card2.add(shipperDetailsModel);
+      }
+    }
+    card2.reversed.toList();
+  }
+  return card1 + card2;
 }
