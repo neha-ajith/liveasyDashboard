@@ -13,6 +13,6 @@ class ShipperDetailsModal {
       this.shipperName,
       this.companyName,
       this.shipperLocation,
-      this.companyApproved, //true Verified
+      this.companyApproved,
       this.accountVerificationInProgress});
 }

@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:liveasy_admin/controller/ListData.dart';
+import 'package:liveasy_admin/functions/getTransporterApi.dart';
+import 'package:liveasy_admin/services/transporterDataSource.dart';
+import 'package:liveasy_admin/widgets/filterButtonWidget.dart';
+import 'package:liveasy_admin/constants/fontSize.dart';
+import 'package:liveasy_admin/constants/fontWeight.dart';
+import 'package:liveasy_admin/constants/screenSizeConfig.dart';
 
 class TransporterDetailsScreen extends StatefulWidget {
   const TransporterDetailsScreen({Key? key}) : super(key: key);
@@ -9,8 +17,102 @@ class TransporterDetailsScreen extends StatefulWidget {
 }
 
 class _TransporterDetailsScreenState extends State<TransporterDetailsScreen> {
+  double safeBlockVertical = SizeConfig.safeBlockVertical!;
+  double safeBlockHorizontal = SizeConfig.safeBlockHorizontal!;
+  final listDataController = Get.put(ListDataController());
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(height: safeBlockVertical * 37),
+          Row(children: [
+            Text('Transporter details', style: TextStyle(fontSize: size_32)),
+            SizedBox(width: safeBlockHorizontal * 727),
+            FilterButtonWidger(type: "Transporter")
+          ]),
+          SizedBox(height: safeBlockVertical * 30),
+          Container(
+              height: safeBlockVertical * 842,
+              width: safeBlockHorizontal * 1137,
+//              padding: EdgeInsets.only(top: safeBlockVertical * paddingHeight),
+              child: Obx(() {
+                listDataController.onTransporterDeleted.value;
+                return FutureBuilder(
+                    future: runGetTransporterApi(
+                        listDataController.choosenTransporterFilter.value),
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if (snapshot.data == null) {
+                        return Container(child: Text('Loading'));
+                      } else if (snapshot.data.length == 0) {
+                        return Center(child: Text('NO Data'));
+                      } else {
+                        var dts = DataSource(data: snapshot.data);
+                        int _rowsPerPage = 5;
+                        int _rowsPerPage1 = 5;
+                        var tableItemsCount = dts.rowCount;
+                        var defaultRowsPerPage = 5;
+                        var isRowCountLessDefault =
+                            tableItemsCount < defaultRowsPerPage;
+                        _rowsPerPage = isRowCountLessDefault
+                            ? tableItemsCount
+                            : defaultRowsPerPage;
+                        return PaginatedDataTable(
+                          columnSpacing: safeBlockHorizontal * 33,
+                          dataRowHeight: safeBlockVertical * 130,
+                          availableRowsPerPage: [5, 10, 15, 20, 25],
+                          source: dts,
+                          rowsPerPage: isRowCountLessDefault
+                              ? _rowsPerPage
+                              : _rowsPerPage1,
+                          columns: [
+                            DataColumn(label: Text('')),
+                            DataColumn(
+                                label: Text('Name',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(fontWeight: boldWeight))),
+                            DataColumn(
+                                label: Text('Contact',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(fontWeight: boldWeight))),
+                            DataColumn(
+                                label: Text('Address',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(fontWeight: boldWeight))),
+                            // DataColumn(
+                            //     label: Text('Document Image',
+                            //         textAlign: TextAlign.center,
+                            //         style: TextStyle(fontWeight: boldWeight))),
+                            DataColumn(
+                                label: Text('Company name',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(fontWeight: boldWeight))),
+                            // DataColumn(
+                            //     label: Text('Company details',
+                            //         textAlign: TextAlign.center,
+                            //         style: TextStyle(fontWeight: boldWeight))),
+                            DataColumn(
+                                label: Text('Status',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(fontWeight: boldWeight))),
+                            DataColumn(
+                                label: Text('Actions',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(fontWeight: boldWeight))),
+                          ],
+                          onRowsPerPageChanged: isRowCountLessDefault
+                              ? null
+                              : (rowCount) {
+                                  setState(() {
+                                    _rowsPerPage1 = rowCount!;
+                                  });
+                                },
+                        );
+                      }
+                    });
+              }))
+        ]);
   }
 }

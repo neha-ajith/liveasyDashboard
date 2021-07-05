@@ -1,17 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:liveasy_admin/models/shipperApiModel.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:liveasy_admin/models/shipperApiModel.dart';
 
-Future<List<ShipperDetailsModal>> runGetShipperApi(choosenValue) async {
+Future<List<ShipperDetailsModal>> runGetShipperApi(String choosenValue) async {
   final String shipperApiUrl = '${dotenv.env['shipperApiUrl'].toString()}';
   final String additionalQuery = '?companyApproved=';
   String compApproved;
 
   List<ShipperDetailsModal> card1 = [];
   List<ShipperDetailsModal> card2 = [];
-  var response;
+  http.Response response;
   var jsonData;
 
   if (choosenValue == "All" || choosenValue == "Verified") {

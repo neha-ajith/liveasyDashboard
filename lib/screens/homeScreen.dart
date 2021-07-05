@@ -9,12 +9,11 @@ import 'package:liveasy_admin/constants/borderWidth.dart';
 import 'package:liveasy_admin/constants/color.dart';
 import 'package:liveasy_admin/constants/fontSize.dart';
 import 'package:liveasy_admin/constants/fontWeight.dart';
-import 'package:liveasy_admin/constants/screenSize.dart';
-import 'package:liveasy_admin/constants/space.dart';
+import 'package:liveasy_admin/constants/screenSizeConfig.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
-  var userData;
+  List<String> userData;
   HomeScreen({Key? key, required this.userData}) : super(key: key);
   @override
   HomeScreenState createState() => HomeScreenState();
@@ -23,8 +22,6 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
-  double safeBlockHorizontal = SizeConfig.safeBlockHorizontal!;
-  double safeBlockVertical = SizeConfig.safeBlockVertical!;
   int active = 0;
 
   @override
@@ -46,19 +43,24 @@ class HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    if (SizeConfig.mediaQueryData == null) {
+      SizeConfig().init(context);
+    }
+    double safeBlockHorizontal = SizeConfig.safeBlockHorizontal!;
+    double safeBlockVertical = SizeConfig.safeBlockVertical!;
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
                 elevation: 0,
                 backgroundColor: signInColor,
-                toolbarHeight: safeBlockVertical * height_45,
+                toolbarHeight: safeBlockVertical * 45,
                 leading: Row(children: [
-                  SizedBox(width: safeBlockHorizontal * width_26),
+                  SizedBox(width: safeBlockHorizontal * 23),
                   Image.asset('icons/liveasy_logo_white.png',
-                      width: safeBlockHorizontal * width_19,
-                      height: safeBlockVertical * height_30)
+                      width: safeBlockHorizontal * 25,
+                      height: safeBlockVertical * 25)
                 ]),
-                titleSpacing: safeBlockHorizontal * width_10,
+                titleSpacing: safeBlockHorizontal * 10,
                 title: Text('Liveasy',
                     style: TextStyle(
                         color: white,
@@ -66,37 +68,40 @@ class HomeScreenState extends State<HomeScreen>
                         fontWeight: boldWeight)),
                 actions: [
                   IconButton(
-                      onPressed: () {}, icon: Icon(Icons.search), iconSize: 17),
-                  SizedBox(width: safeBlockHorizontal * width_19),
+                      onPressed: () {}, // Search Logic pending
+                      icon: Icon(Icons.search),
+                      iconSize: 17),
+                  SizedBox(width: safeBlockHorizontal * 19),
                   Center(child: Text("admin")),
-                  SizedBox(width: safeBlockHorizontal * width_10),
+                  SizedBox(width: safeBlockHorizontal * 10),
                   Center(
                       child: IconButton(
-                          onPressed: () {},
+                          onPressed:
+                              () {}, //Admin Account settings like Sign Out Button
                           icon: Icon(Icons.person),
-                          iconSize: 18)),
-                  SizedBox(width: safeBlockHorizontal * width_50)
+                          iconSize: 25)),
+                  SizedBox(width: safeBlockVertical * 45)
                 ]),
             body: Row(children: [
               Card(
                   elevation: 1.5,
                   shadowColor: black,
                   child: Container(
-                    width: safeBlockHorizontal * width_238,
+                    width: safeBlockHorizontal * 238,
                     child: listDrawerItems(false),
                   )),
               tabController.index == 0
-                  ? SizedBox(width: safeBlockHorizontal * width_41)
-                  : SizedBox(width: safeBlockHorizontal * width_25),
+                  ? SizedBox(width: safeBlockHorizontal * 41)
+                  : SizedBox(width: safeBlockHorizontal * 25),
               Container(
                   width: tabController.index == 0
-                      ? safeBlockHorizontal * dashboardWidth
-                      : safeBlockHorizontal * width_1177,
-                  height: safeBlockVertical * height_979,
+                      ? safeBlockHorizontal * 1152 //1161 TODO:Unknown Error
+                      : safeBlockHorizontal * 1167, //1177 TODO: Unknown Error
+                  height: safeBlockVertical * 979,
                   child: TabBarView(controller: tabController, children: [
                     Dashboard(),
                     ShipperDetailsScreen(),
-                    ShipperActivitiesScreen(),
+                    ShipperActivitiesScreen(), //TODO: These Screens are empty
                     TransporterDetailsScreen(),
                     TransporterActivitiesScreen(),
                     GPSDetailsScreen()
@@ -105,11 +110,14 @@ class HomeScreenState extends State<HomeScreen>
   }
 
   Widget listDrawerItems(bool drawerStatus) {
+    double safeBlockHorizontal = SizeConfig.safeBlockHorizontal!;
+    double safeBlockVertical = SizeConfig.safeBlockVertical!;
     return ListView(children: <Widget>[
+      SizedBox(height: safeBlockVertical * 30),
       TextButton(
           style: TextButton.styleFrom(
-              fixedSize: Size(safeBlockHorizontal * width_238,
-                  safeBlockVertical * height_30),
+              fixedSize:
+                  Size(safeBlockHorizontal * 238, safeBlockVertical * 35),
               backgroundColor: tabController.index == 0
                   ? tabSelection.withOpacity(0.20)
                   : white),
@@ -118,28 +126,28 @@ class HomeScreenState extends State<HomeScreen>
             drawerStatus ? Navigator.pop(context) : print("");
           },
           child: Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                  padding:
-                      EdgeInsets.only(left: safeBlockHorizontal * width_20),
-                  child: Row(children: [
-                    Icon(Icons.speed_outlined, size: 20, color: greyColor),
-                    SizedBox(
-                      width: safeBlockHorizontal * width_10,
-                    ),
-                    Text(
-                      "Dashboard",
+            alignment: Alignment.centerLeft,
+            child: Container(
+                padding: EdgeInsets.only(left: safeBlockHorizontal * 20),
+                child: Row(children: [
+                  Icon(Icons.speed_outlined, size: 14, color: greyColor),
+                  SizedBox(
+                    width: safeBlockHorizontal * 10,
+                  ),
+                  Text("Dashboard",
                       style: TextStyle(
                           color: greyColor,
                           fontWeight: normalWeight,
-                          fontSize: size_16),
-                    )
-                  ])))),
+                          fontSize: size_16)),
+                ])),
+          )),
+      SizedBox(height: safeBlockVertical * 3),
       Divider(color: greyColor.withOpacity(0.10), thickness: borderWidth_1),
+      SizedBox(height: safeBlockVertical * 10),
       TextButton(
           style: TextButton.styleFrom(
-              fixedSize: Size(safeBlockHorizontal * width_238,
-                  safeBlockVertical * height_30),
+              fixedSize:
+                  Size(safeBlockHorizontal * 238, safeBlockVertical * 35),
               backgroundColor: tabController.index == 1
                   ? tabSelection.withOpacity(0.20)
                   : white),
@@ -148,28 +156,27 @@ class HomeScreenState extends State<HomeScreen>
             drawerStatus ? Navigator.pop(context) : print("");
           },
           child: Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                  padding:
-                      EdgeInsets.only(left: safeBlockHorizontal * width_20),
-                  child: Row(children: [
-                    Icon(Icons.card_giftcard_outlined,
-                        size: 14, color: greyColor),
-                    SizedBox(
-                      width: safeBlockVertical * width_10,
-                    ),
-                    Text(
-                      "Shipper details",
+            alignment: Alignment.centerLeft,
+            child: Container(
+                padding: EdgeInsets.only(left: safeBlockHorizontal * 20),
+                child: Row(children: [
+                  Icon(Icons.card_giftcard_outlined,
+                      size: 14, color: greyColor),
+                  SizedBox(
+                    width: safeBlockVertical * 10,
+                  ),
+                  Text("Shipper details",
                       style: TextStyle(
                           color: greyColor,
                           fontWeight: normalWeight,
-                          fontSize: size_16),
-                    )
-                  ])))),
+                          fontSize: size_16)),
+                ])),
+          )),
+      SizedBox(height: safeBlockVertical * 10),
       TextButton(
           style: TextButton.styleFrom(
-              fixedSize: Size(safeBlockHorizontal * width_238,
-                  safeBlockVertical * height_30),
+              fixedSize:
+                  Size(safeBlockHorizontal * 238, safeBlockVertical * 35),
               backgroundColor: tabController.index == 2
                   ? tabSelection.withOpacity(0.20)
                   : white),
@@ -179,25 +186,31 @@ class HomeScreenState extends State<HomeScreen>
           },
           child: Align(
               alignment: Alignment.centerLeft,
-              child: Container(
-                  padding:
-                      EdgeInsets.only(left: safeBlockHorizontal * width_20),
-                  child: Row(children: [
-                    Icon(Icons.note_sharp, size: 14, color: greyColor),
-                    SizedBox(
-                      width: safeBlockVertical * width_10,
-                    ),
-                    Text("Shipper activities",
-                        style: TextStyle(
-                          color: greyColor,
-                          fontWeight: normalWeight,
-                          fontSize: size_16,
-                        ))
-                  ])))),
+              child: Row(
+                children: [
+                  Container(
+                      width: safeBlockHorizontal * 210,
+                      padding: EdgeInsets.only(left: safeBlockHorizontal * 20),
+                      child: Row(children: [
+                        Icon(Icons.note_sharp, size: 14, color: greyColor),
+                        SizedBox(
+                          width: safeBlockVertical * 10,
+                        ),
+                        Text("Shipper activities",
+                            style: TextStyle(
+                              color: greyColor,
+                              fontWeight: normalWeight,
+                              fontSize: size_16,
+                            )),
+                      ])),
+                  Icon(Icons.chevron_right_outlined, size: 10),
+                ],
+              ))),
+      SizedBox(height: safeBlockVertical * 10),
       TextButton(
           style: TextButton.styleFrom(
-              fixedSize: Size(safeBlockHorizontal * width_238,
-                  safeBlockVertical * height_30),
+              fixedSize:
+                  Size(safeBlockHorizontal * 238, safeBlockVertical * 35),
               backgroundColor: tabController.index == 3
                   ? tabSelection.withOpacity(0.20)
                   : white),
@@ -206,26 +219,27 @@ class HomeScreenState extends State<HomeScreen>
             drawerStatus ? Navigator.pop(context) : print("");
           },
           child: Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                  padding:
-                      EdgeInsets.only(left: safeBlockHorizontal * width_20),
-                  child: Row(children: [
-                    Icon(Icons.car_repair, size: 14, color: greyColor),
-                    SizedBox(
-                      width: safeBlockVertical * width_10,
-                    ),
-                    Text("Transporter details",
-                        style: TextStyle(
-                          color: greyColor,
-                          fontWeight: normalWeight,
-                          fontSize: size_16,
-                        ))
-                  ])))),
+            alignment: Alignment.centerLeft,
+            child: Container(
+                padding: EdgeInsets.only(left: safeBlockHorizontal * 20),
+                child: Row(children: [
+                  Icon(Icons.car_repair, size: 14, color: greyColor),
+                  SizedBox(
+                    width: safeBlockVertical * 10,
+                  ),
+                  Text("Transporter details",
+                      style: TextStyle(
+                        color: greyColor,
+                        fontWeight: normalWeight,
+                        fontSize: size_16,
+                      )),
+                ])),
+          )),
+      SizedBox(height: safeBlockVertical * 10),
       TextButton(
           style: TextButton.styleFrom(
-              fixedSize: Size(safeBlockHorizontal * width_238,
-                  safeBlockVertical * height_30),
+              fixedSize:
+                  Size(safeBlockHorizontal * 238, safeBlockVertical * 35),
               backgroundColor: tabController.index == 4
                   ? tabSelection.withOpacity(0.20)
                   : white),
@@ -235,25 +249,31 @@ class HomeScreenState extends State<HomeScreen>
           },
           child: Align(
               alignment: Alignment.centerLeft,
-              child: Container(
-                  padding:
-                      EdgeInsets.only(left: safeBlockHorizontal * width_20),
-                  child: Row(children: [
-                    Icon(Icons.note, size: 14, color: greyColor),
-                    SizedBox(
-                      width: safeBlockVertical * width_10,
-                    ),
-                    Text("Transporter activities",
-                        style: TextStyle(
-                          color: greyColor,
-                          fontWeight: normalWeight,
-                          fontSize: size_16,
-                        ))
-                  ])))),
+              child: Row(
+                children: [
+                  Container(
+                      width: safeBlockHorizontal * 210,
+                      padding: EdgeInsets.only(left: safeBlockHorizontal * 20),
+                      child: Row(children: [
+                        Icon(Icons.note, size: 14, color: greyColor),
+                        SizedBox(
+                          width: safeBlockVertical * 10,
+                        ),
+                        Text("Transporter activities",
+                            style: TextStyle(
+                              color: greyColor,
+                              fontWeight: normalWeight,
+                              fontSize: size_16,
+                            )),
+                      ])),
+                  Icon(Icons.chevron_right_outlined, size: 10),
+                ],
+              ))),
+      SizedBox(height: safeBlockVertical * 10),
       TextButton(
           style: TextButton.styleFrom(
-              fixedSize: Size(safeBlockHorizontal * width_238,
-                  safeBlockVertical * height_30),
+              fixedSize:
+                  Size(safeBlockHorizontal * 238, safeBlockVertical * 35),
               backgroundColor: tabController.index == 5
                   ? tabSelection.withOpacity(0.20)
                   : white),
@@ -262,22 +282,22 @@ class HomeScreenState extends State<HomeScreen>
             drawerStatus ? Navigator.pop(context) : print("");
           },
           child: Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                  padding:
-                      EdgeInsets.only(left: safeBlockHorizontal * width_20),
-                  child: Row(children: [
-                    Icon(Icons.gps_fixed, size: 14, color: greyColor),
-                    SizedBox(
-                      width: safeBlockVertical * width_10,
-                    ),
-                    Text("GPS details",
-                        style: TextStyle(
-                          color: greyColor,
-                          fontWeight: normalWeight,
-                          fontSize: size_16,
-                        ))
-                  ]))))
+            alignment: Alignment.centerLeft,
+            child: Container(
+                padding: EdgeInsets.only(left: safeBlockHorizontal * 20),
+                child: Row(children: [
+                  Icon(Icons.gps_fixed, size: 14, color: greyColor),
+                  SizedBox(
+                    width: safeBlockVertical * 10,
+                  ),
+                  Text("GPS details",
+                      style: TextStyle(
+                        color: greyColor,
+                        fontWeight: normalWeight,
+                        fontSize: size_16,
+                      )),
+                ])),
+          ))
     ]);
   }
 }

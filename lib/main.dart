@@ -3,8 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:liveasy_admin/services/authentication.dart';
-import 'package:liveasy_admin/screens/homeScreen.dart';
 import 'package:liveasy_admin/screens/LoginScreen.dart';
+import 'package:liveasy_admin/screens/homeScreen.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,9 +23,9 @@ class _LiveasyAdminState extends State<LiveasyAdmin> {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: Authentication.getUser(),
-        builder: (context, snapshot) {
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data != null) {
-            var data = snapshot.data;
+            List<String> data = snapshot.data;
             return GetMaterialApp(
                 title: "Liveasy Admin",
                 theme: ThemeData(fontFamily: 'montserrat'),

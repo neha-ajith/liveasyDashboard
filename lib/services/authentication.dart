@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:liveasy_admin/screens/homeScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
+import 'package:liveasy_admin/screens/homeScreen.dart';
 import 'package:liveasy_admin/screens/LoginScreen.dart';
 
 class Authentication {
   static FirebaseAuth _auth = FirebaseAuth.instance;
   static String? userUid;
   static String? userEmail;
-  static List<String?> userData = [];
+  static List<String> userData = [];
 
   static SnackBar customSnackBar({required String content}) {
     return SnackBar(
@@ -20,14 +20,14 @@ class Authentication {
     );
   }
 
-  static Future<List<String?>?> getUser() async {
+  static Future<List<String>?> getUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool authSignedIn = prefs.getBool('auth') ?? false;
+    bool autoSignedIn = prefs.getBool('auth') ?? false;
     final User? user = _auth.currentUser;
-    if (authSignedIn == true && user != null) {
+    if (autoSignedIn == true && user != null) {
       userUid = user.uid;
       userEmail = user.email;
-      userData.addAll([userUid, userEmail]);
+      userData.addAll([userUid!, userEmail!]);
       return userData;
     }
   }
@@ -46,7 +46,7 @@ class Authentication {
         userEmail = user.email;
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setBool('auth', true);
-        userData.addAll([userUid, userEmail]);
+        userData.addAll([userUid!, userEmail!]);
         Get.to(() => HomeScreen(userData: userData));
       }
     } on FirebaseAuthException catch (e) {
@@ -67,7 +67,7 @@ class Authentication {
     await _auth.signOut();
     userUid = null;
     userEmail = null;
-    userData = [null, null];
+    userData.clear();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('auth', false);
 

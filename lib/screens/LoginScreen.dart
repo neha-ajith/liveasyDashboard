@@ -4,10 +4,11 @@ import 'package:liveasy_admin/constants/borderWidth.dart';
 import 'package:liveasy_admin/constants/color.dart';
 import 'package:liveasy_admin/constants/fontSize.dart';
 import 'package:liveasy_admin/constants/fontWeight.dart';
-import 'package:liveasy_admin/constants/screenSize.dart';
+import 'package:liveasy_admin/constants/screenSizeConfig.dart';
 import 'package:liveasy_admin/constants/space.dart';
 
 class LoginScreen extends StatefulWidget {
+  LoginScreen({Key? key}) : super(key: key);
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -17,33 +18,35 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode textFocusNodeEmail = FocusNode();
   final FocusNode textFocusNodePassword = FocusNode();
-  bool _isEditingEmail = false;
+  final FocusNode buttonFocusNodesignIn = FocusNode();
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
+    if (SizeConfig.mediaQueryData == null) {
+      SizeConfig().init(context);
+    }
     double safeBlockHorizontal = SizeConfig.safeBlockHorizontal!;
     double safeBlockVertical = SizeConfig.safeBlockVertical!;
 
     _buildTextField(String type, TextEditingController controller,
         FocusNode focusNode, String labelText) {
       return Container(
-          height: safeBlockVertical * height_71, //71
-          width: safeBlockHorizontal * width_449, //449
+          height: safeBlockVertical * 71,
+          width: safeBlockHorizontal * 449,
           decoration: BoxDecoration(
               color: white,
               borderRadius: BorderRadius.circular(radius_25),
               border: Border.all(color: greyColor.withOpacity(0.30))),
           child: Row(children: [
             Container(
-              height: safeBlockVertical * height_71, //71
+              height: safeBlockVertical * 71,
               width: type == "Email"
-                  ? safeBlockHorizontal * emailTextbox
-                  : safeBlockHorizontal * width_345, //449 or 345
+                  ? safeBlockHorizontal * 400 //449 TODO: Automate  All FontSize
+                  : safeBlockHorizontal * 345,
               padding: EdgeInsets.only(
-                  left: safeBlockHorizontal * width_31, //31
-                  top: safeBlockVertical * height_17, //17
-                  bottom: safeBlockVertical * height_17), //17
+                  left: safeBlockHorizontal * 31,
+                  top: safeBlockVertical * 17,
+                  bottom: safeBlockVertical * 17),
               child: TextField(
                 autofillHints: type == 'Email'
                     ? [AutofillHints.email]
@@ -55,18 +58,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     : TextInputType.text,
                 textInputAction: TextInputAction.next,
                 controller: controller,
-                onChanged: (value) {
-                  setState(() {
-                    _isEditingEmail = !_isEditingEmail;
-                  });
-                },
                 onSubmitted: type == "Email"
                     ? (value) {
                         textFocusNodeEmail.unfocus();
                         FocusScope.of(context)
                             .requestFocus(textFocusNodePassword);
                       }
-                    : (value) {},
+                    : (value) {
+                        textFocusNodePassword.unfocus();
+                        FocusScope.of(context)
+                            .requestFocus(buttonFocusNodesignIn);
+                      },
                 style: TextStyle(
                     color: black,
                     fontSize: input_size,
@@ -82,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             if (type == "Password")
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {}, //Forgot Password Logic
                   child: Text("Forgot?",
                       style: TextStyle(
                           color: forgotColor,
@@ -96,25 +98,25 @@ class _LoginScreenState extends State<LoginScreen> {
             backgroundColor: white,
             body: Center(
                 child: Column(children: [
-              SizedBox(height: safeBlockVertical * height_102), //102
+              SizedBox(height: safeBlockVertical * 100),
               Container(
-                height: safeBlockVertical * height_90, //90
-                width: safeBlockHorizontal * width_86, //86
+                height: safeBlockVertical * 90,
+                width: safeBlockHorizontal * 90,
                 child: Image.asset('icons/liveasy_logo.png'),
               ),
-              SizedBox(height: safeBlockVertical * height_30), //30
+              SizedBox(height: safeBlockVertical * 30),
               Text("Welcome to Liveasy!",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: black, fontSize: size_38, fontWeight: boldWeight)),
-              SizedBox(height: safeBlockVertical * height_49), //49
+              SizedBox(height: safeBlockVertical * 50),
               Container(
-                  width: safeBlockHorizontal * width_584, //584
-                  height: safeBlockVertical * height_560, //560
+                  width: safeBlockHorizontal * 585,
+                  height: safeBlockVertical * 550,
                   padding: EdgeInsets.only(
-                      top: safeBlockVertical * height_64, //64
-                      left: safeBlockHorizontal * width_67, //67
-                      right: safeBlockHorizontal * width_68), //68
+                      top: safeBlockVertical * 64,
+                      left: safeBlockHorizontal * 67,
+                      right: safeBlockHorizontal * 68),
                   decoration: BoxDecoration(
                       color: white,
                       border: Border.all(
@@ -129,12 +131,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fontSize: size_18,
                                 fontWeight: normalWeight),
                             textAlign: TextAlign.left),
-                        SizedBox(height: safeBlockVertical * height_20), //20
+                        SizedBox(height: safeBlockVertical * 20),
                         AutofillGroup(
                           child: _buildTextField("Email", _emailController,
                               textFocusNodeEmail, 'ex: zivapaul@gmail.com'),
                         ),
-                        SizedBox(height: safeBlockVertical * height_30), //30
+                        SizedBox(height: safeBlockVertical * 30),
                         Text(
                           'Password',
                           style: TextStyle(
@@ -143,14 +145,15 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontWeight: regularWeight),
                           textAlign: TextAlign.left,
                         ),
-                        SizedBox(height: safeBlockVertical * height_20), //20
+                        SizedBox(height: safeBlockVertical * 20),
                         _buildTextField("Password", _passwordController,
                             textFocusNodePassword, 'ex: Ziva123#'),
-                        SizedBox(height: safeBlockVertical * height_49), //49
+                        SizedBox(height: safeBlockVertical * 50),
                         Container(
-                          height: safeBlockVertical * height_71,
-                          width: safeBlockHorizontal * width_449,
+                          height: safeBlockVertical * 71,
+                          width: safeBlockHorizontal * 449,
                           child: MaterialButton(
+                              focusNode: buttonFocusNodesignIn,
                               shape: RoundedRectangleBorder(
                                   side: BorderSide(color: signInColor),
                                   borderRadius:
