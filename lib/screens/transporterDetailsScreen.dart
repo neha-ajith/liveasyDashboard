@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:liveasy_admin/controller/ListData.dart';
+import 'package:liveasy_admin/controller/TransporterController.dart';
 import 'package:liveasy_admin/functions/getTransporterApi.dart';
 import 'package:liveasy_admin/services/transporterDataSource.dart';
 import 'package:liveasy_admin/widgets/filterButtonWidget.dart';
@@ -19,7 +19,8 @@ class TransporterDetailsScreen extends StatefulWidget {
 class _TransporterDetailsScreenState extends State<TransporterDetailsScreen> {
   double safeBlockVertical = SizeConfig.safeBlockVertical!;
   double safeBlockHorizontal = SizeConfig.safeBlockHorizontal!;
-  final listDataController = Get.put(ListDataController());
+  TransporterController transporterController =
+      Get.put(TransporterController());
 
   @override
   Widget build(BuildContext context) {
@@ -31,18 +32,19 @@ class _TransporterDetailsScreenState extends State<TransporterDetailsScreen> {
           Row(children: [
             Text('Transporter details', style: TextStyle(fontSize: size_32)),
             SizedBox(width: safeBlockHorizontal * 727),
-            FilterButtonWidger(type: "Transporter")
+            FilterButtonWidget(type: "Transporter")
           ]),
           SizedBox(height: safeBlockVertical * 30),
           Container(
               height: safeBlockVertical * 842,
               width: safeBlockHorizontal * 1137,
-//              padding: EdgeInsets.only(top: safeBlockVertical * paddingHeight),
+//              padding: EdgeInsets.only(top: safeBlockVerticaeight),
               child: Obx(() {
-                listDataController.onTransporterDeleted.value;
+                transporterController.choosenTransporterFilter.value;
+                transporterController.onTransporterDeleted.value;
                 return FutureBuilder(
                     future: runGetTransporterApi(
-                        listDataController.choosenTransporterFilter.value),
+                        transporterController.choosenTransporterFilter.value),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.data == null) {
                         return Container(child: Text('Loading'));

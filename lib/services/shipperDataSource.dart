@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:liveasy_admin/controller/ListData.dart';
+import 'package:liveasy_admin/controller/ShipperController.dart';
 import 'package:liveasy_admin/models/shipperApiModel.dart';
 import 'package:liveasy_admin/screens/updateShipperScreen.dart';
 import 'package:liveasy_admin/functions/delShipperApi.dart';
@@ -11,7 +11,7 @@ class DataSource extends DataTableSource {
   DataSource({required List<ShipperDetailsModal> data}) : _data = data;
   double safeBlockHorizontal = SizeConfig.safeBlockHorizontal!;
   double safeBlockVertical = SizeConfig.safeBlockVertical!;
-  ListDataController listDataController = Get.put(ListDataController());
+  ShipperController shipperController = Get.put(ShipperController());
 
   @override
   DataRow getRow(int index) {
@@ -66,7 +66,7 @@ class DataSource extends DataTableSource {
           IconButton(
               onPressed: () async {
                 await runDeleteShipperApi(_userdata.shipperId!);
-                listDataController.updateOnShipperDelete(true);
+                shipperController.updateOnShipperDelete(true);
               },
               icon: Icon(Icons.delete_outlined))
         ],

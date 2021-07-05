@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:liveasy_admin/controller/ListData.dart';
+import 'package:liveasy_admin/controller/TransporterController.dart';
 import 'package:liveasy_admin/models/transporterApiModel.dart';
 import 'package:liveasy_admin/screens/updateTransporterScreen.dart';
-import 'package:liveasy_admin/functions/delTransporterApi.dart';
+//import 'package:liveasy_admin/functions/delTransporterApi.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
 
 class DataSource extends DataTableSource {
@@ -11,7 +11,8 @@ class DataSource extends DataTableSource {
   DataSource({required List<TransporterDetailsModal> data}) : _data = data;
   double safeBlockHorizontal = SizeConfig.safeBlockHorizontal!;
   double safeBlockVertical = SizeConfig.safeBlockVertical!;
-  ListDataController listDataController = Get.put(ListDataController());
+  TransporterController transporterController =
+      Get.put(TransporterController());
 
   @override
   DataRow getRow(int index) {
@@ -63,8 +64,8 @@ class DataSource extends DataTableSource {
           SizedBox(width: safeBlockHorizontal * 12),
           IconButton(
               onPressed: () async {
-                await runDeleteTransporterApi(_userdata.transporterId!);
-                listDataController.updateOnTransporterDelete(true);
+//                await runDeleteTransporterApi(_userdata.transporterId!);
+                transporterController.updateOnTransporterDelete(true);
               },
               icon: Icon(Icons.delete_outlined))
         ],

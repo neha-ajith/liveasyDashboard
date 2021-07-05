@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:liveasy_admin/controller/ListData.dart';
+import 'package:liveasy_admin/controller/ShipperController.dart';
 import 'package:liveasy_admin/functions/getShipperApi.dart';
 import 'package:liveasy_admin/services/shipperDataSource.dart';
 import 'package:liveasy_admin/widgets/filterButtonWidget.dart';
@@ -18,7 +18,7 @@ class ShipperDetailsScreen extends StatefulWidget {
 class _ShipperDetailsScreenState extends State<ShipperDetailsScreen> {
   double safeBlockVertical = SizeConfig.safeBlockVertical!;
   double safeBlockHorizontal = SizeConfig.safeBlockHorizontal!;
-  final listDataController = Get.put(ListDataController());
+  ShipperController shipperController = Get.put(ShipperController());
 
   @override
   Widget build(BuildContext context) {
@@ -30,17 +30,20 @@ class _ShipperDetailsScreenState extends State<ShipperDetailsScreen> {
           Row(children: [
             Text('Shipper details', style: TextStyle(fontSize: size_32)),
             SizedBox(width: safeBlockHorizontal * 727),
-            FilterButtonWidger(type: "Shipper")
+            FilterButtonWidget(type: "Shipper")
           ]),
           SizedBox(height: safeBlockVertical * 30),
           Container(
               height: safeBlockVertical * 842,
               width: safeBlockHorizontal * 1137,
               child: Obx(() {
-                listDataController.onShipperDeleted.value;
+                shipperController.choosenShipperFilter.value;
+                shipperController.onShipperDeleted.value;
+                print("Shipper Call");
+                print(shipperController.choosenShipperFilter.value);
                 return FutureBuilder(
                     future: runGetShipperApi(
-                        listDataController.choosenShipperFilter.value),
+                        shipperController.choosenShipperFilter.value),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.data == null) {
                         return Center(child: Text('Loading'));

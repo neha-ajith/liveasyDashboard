@@ -2,15 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:liveasy_admin/constants/borderWidth.dart';
 import 'package:liveasy_admin/constants/color.dart';
 import 'package:get/get.dart';
-import 'package:liveasy_admin/controller/ListData.dart';
+import 'package:liveasy_admin/controller/ShipperController.dart';
+import 'package:liveasy_admin/controller/TransporterController.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
 
 // ignore: must_be_immutable
-class FilterButtonWidger extends StatelessWidget {
+class FilterButtonWidget extends StatefulWidget {
   String? type;
-  FilterButtonWidger({Key? key, required type}) : super(key: key);
+  FilterButtonWidget({Key? key, required type}) : super(key: key);
 
-  ListDataController listDataController = Get.put(ListDataController());
+  @override
+  _FilterButtonWidgetState createState() => _FilterButtonWidgetState();
+}
+
+class _FilterButtonWidgetState extends State<FilterButtonWidget> {
+  ShipperController shipperController = Get.put(ShipperController());
+  TransporterController transporterController =
+      Get.put(TransporterController());
   double safeBlockVertical = SizeConfig.safeBlockVertical!;
   double safeBlockHorizontal = SizeConfig.safeBlockHorizontal!;
   List<String> filterItem = ["All", "Verified", "Pending"];
@@ -35,15 +43,19 @@ class FilterButtonWidger extends StatelessWidget {
               alignment: Alignment.centerRight,
             ),
             underline: SizedBox(width: 20),
-            value: type == "Shipper"
-                ? listDataController.choosenShipperFilter.value
-                : listDataController.choosenTransporterFilter.value,
+            value: widget.type == "Shipper"
+                ? shipperController.choosenShipperFilter.value
+                : transporterController.choosenTransporterFilter.value,
             onChanged: (newValue) {
-              type == "Shipper"
-                  ? listDataController
-                      .updateOnShipperFilterValue(newValue.toString())
-                  : listDataController
+              setState(() {
+                if (widget.type == "Shipper") {
+                  shipperController
+                      .updateOnShipperFilterValue(newValue.toString());
+                } else {
+                  transporterController
                       .updateOnTransporterFilterValue(newValue.toString());
+                }
+              });
             },
             items: filterItem.map((valueItem) {
               return DropdownMenuItem(
