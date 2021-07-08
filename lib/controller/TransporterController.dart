@@ -12,4 +12,10 @@ class TransporterController extends GetxController {
   void updateOnTransporterDelete(bool newValue) {
     onTransporterDeleted.value = newValue;
   }
+
+  RxInt onTransporterApprove = 0.obs;
+
+  void updateOnTransporterApproval(int newValue) {
+    onTransporterApprove.value = newValue;
+  }
 }

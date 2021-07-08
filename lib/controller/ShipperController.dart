@@ -12,4 +12,10 @@ class ShipperController extends GetxController {
   void updateOnShipperDelete(bool newValue) {
     onShipperDeleted.value = newValue;
   }
+
+  RxInt onShipperApprove = 0.obs;
+
+  void updateOnShipperApproval(int newValue) {
+    onShipperApprove.value = newValue;
+  }
 }

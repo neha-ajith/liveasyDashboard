@@ -34,11 +34,9 @@ class DataSource extends DataTableSource {
         children: [
           IconButton(
               onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => UpdateTransporterScreen(
-                            transporterDetails: _userdata)));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => UpdateTransporterScreen(
+                        transporterDetails: _userdata)));
               },
               icon: Icon(Icons.rate_review_outlined)),
           SizedBox(width: safeBlockHorizontal * 12),

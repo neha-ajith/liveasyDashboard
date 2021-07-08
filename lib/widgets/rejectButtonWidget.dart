@@ -22,7 +22,7 @@ class RejectButtonWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(radius_25)),
           color: white,
           onPressed: () {},
-          child: Text('Rejected',
+          child: Text('Reject',
               style: TextStyle(
                   color: greyColor,
                   fontSize: size_12,

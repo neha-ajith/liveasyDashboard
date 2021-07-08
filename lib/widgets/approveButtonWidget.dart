@@ -6,8 +6,8 @@ import 'package:liveasy_admin/constants/color.dart';
 import 'package:liveasy_admin/constants/space.dart';
 
 // ignore: must_be_immutable
-class AcceptButtonWidget extends StatelessWidget {
-  AcceptButtonWidget({Key? key, required String type}) : super(key: key);
+class ApproveButtonWidget extends StatelessWidget {
+  ApproveButtonWidget({Key? key, required String type}) : super(key: key);
   double safeBlockVertical = SizeConfig.safeBlockVertical!;
   double safeBlockHorizontal = SizeConfig.safeBlockHorizontal!;
 
@@ -22,7 +22,7 @@ class AcceptButtonWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(radius_25)),
           color: signInColor,
           onPressed: () {},
-          child: Text('Accepted',
+          child: Text('Approve',
               style: TextStyle(
                   color: white, fontSize: size_12, fontWeight: regularWeight))),
     );
