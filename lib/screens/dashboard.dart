@@ -39,7 +39,7 @@ class _DashboardState extends State<Dashboard> {
             elevation: 2.0,
             child: Container(
                 height: safeBlockVertical * 108,
-                width: safeBlockHorizontal * 260, //265
+                width: safeBlockHorizontal * 265, //260
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

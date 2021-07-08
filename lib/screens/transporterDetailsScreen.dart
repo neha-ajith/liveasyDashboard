@@ -24,6 +24,7 @@ class _TransporterDetailsScreenState extends State<TransporterDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    BuildContext mainContext = context;
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -38,9 +39,7 @@ class _TransporterDetailsScreenState extends State<TransporterDetailsScreen> {
           Container(
               height: safeBlockVertical * 842,
               width: safeBlockHorizontal * 1137,
-//              padding: EdgeInsets.only(top: safeBlockVerticaeight),
               child: Obx(() {
-                transporterController.choosenTransporterFilter.value;
                 transporterController.onTransporterDeleted.value;
                 return FutureBuilder(
                     future: runGetTransporterApi(
@@ -51,7 +50,8 @@ class _TransporterDetailsScreenState extends State<TransporterDetailsScreen> {
                       } else if (snapshot.data.length == 0) {
                         return Center(child: Text('NO Data'));
                       } else {
-                        var dts = DataSource(data: snapshot.data);
+                        var dts = DataSource(
+                            data: snapshot.data, context: mainContext);
                         int _rowsPerPage = 5;
                         int _rowsPerPage1 = 5;
                         var tableItemsCount = dts.rowCount;
@@ -80,21 +80,13 @@ class _TransporterDetailsScreenState extends State<TransporterDetailsScreen> {
                                     textAlign: TextAlign.center,
                                     style: TextStyle(fontWeight: boldWeight))),
                             DataColumn(
-                                label: Text('Address',
+                                label: Text('Location',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(fontWeight: boldWeight))),
-                            // DataColumn(
-                            //     label: Text('Document Image',
-                            //         textAlign: TextAlign.center,
-                            //         style: TextStyle(fontWeight: boldWeight))),
                             DataColumn(
                                 label: Text('Company name',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(fontWeight: boldWeight))),
-                            // DataColumn(
-                            //     label: Text('Company details',
-                            //         textAlign: TextAlign.center,
-                            //         style: TextStyle(fontWeight: boldWeight))),
                             DataColumn(
                                 label: Text('Status',
                                     textAlign: TextAlign.center,

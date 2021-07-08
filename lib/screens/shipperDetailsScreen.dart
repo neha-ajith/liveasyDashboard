@@ -22,6 +22,7 @@ class _ShipperDetailsScreenState extends State<ShipperDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    BuildContext mainContext = context;
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -37,10 +38,7 @@ class _ShipperDetailsScreenState extends State<ShipperDetailsScreen> {
               height: safeBlockVertical * 842,
               width: safeBlockHorizontal * 1137,
               child: Obx(() {
-                shipperController.choosenShipperFilter.value;
                 shipperController.onShipperDeleted.value;
-                print("Shipper Call");
-                print(shipperController.choosenShipperFilter.value);
                 return FutureBuilder(
                     future: runGetShipperApi(
                         shipperController.choosenShipperFilter.value),
@@ -50,7 +48,8 @@ class _ShipperDetailsScreenState extends State<ShipperDetailsScreen> {
                       } else if (snapshot.data.length == 0) {
                         return Center(child: Text('NO Data'));
                       } else {
-                        var dts = DataSource(data: snapshot.data);
+                        var dts = DataSource(
+                            data: snapshot.data, context: mainContext);
                         int _rowsPerPage = 5;
                         int _rowsPerPage1 = 5;
                         var tableItemsCount = dts.rowCount;
@@ -79,21 +78,13 @@ class _ShipperDetailsScreenState extends State<ShipperDetailsScreen> {
                                     textAlign: TextAlign.center,
                                     style: TextStyle(fontWeight: boldWeight))),
                             DataColumn(
-                                label: Text('Address',
+                                label: Text('Location',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(fontWeight: boldWeight))),
-                            // DataColumn(
-                            //     label: Text('Document Image',
-                            //         textAlign: TextAlign.center,
-                            //         style: TextStyle(fontWeight: boldWeight))),
                             DataColumn(
                                 label: Text('Company name',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(fontWeight: boldWeight))),
-                            // DataColumn(
-                            //     label: Text('Company details',
-                            //         textAlign: TextAlign.center,
-                            //         style: TextStyle(fontWeight: boldWeight))),
                             DataColumn(
                                 label: Text('Status',
                                     textAlign: TextAlign.center,

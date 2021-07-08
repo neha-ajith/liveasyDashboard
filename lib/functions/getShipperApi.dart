@@ -4,13 +4,13 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:liveasy_admin/models/shipperApiModel.dart';
 
-Future<List<ShipperDetailsModal>> runGetShipperApi(String choosenValue) async {
+Future<List<ShipperDetailsModel>> runGetShipperApi(String choosenValue) async {
   final String shipperApiUrl = '${dotenv.env['shipperApiUrl'].toString()}';
   final String additionalQuery = '?companyApproved=';
   String compApproved;
 
-  List<ShipperDetailsModal> card1 = [];
-  List<ShipperDetailsModal> card2 = [];
+  List<ShipperDetailsModel> card1 = [];
+  List<ShipperDetailsModel> card2 = [];
   http.Response response;
   var jsonData;
 
@@ -22,7 +22,7 @@ Future<List<ShipperDetailsModal>> runGetShipperApi(String choosenValue) async {
 
     jsonData = json.decode(response.body);
     for (var json in jsonData) {
-      ShipperDetailsModal shipperDetailsModel = ShipperDetailsModal();
+      ShipperDetailsModel shipperDetailsModel = ShipperDetailsModel();
       shipperDetailsModel.shipperId = json["shipperId"];
       shipperDetailsModel.phoneNo = json["phoneNo"];
       shipperDetailsModel.shipperName = json["shipperName"];
@@ -43,7 +43,7 @@ Future<List<ShipperDetailsModal>> runGetShipperApi(String choosenValue) async {
     jsonData = json.decode(response.body);
     for (var json in jsonData) {
       if (json['accountVerificationInProgress']) {
-        ShipperDetailsModal shipperDetailsModel = ShipperDetailsModal();
+        ShipperDetailsModel shipperDetailsModel = ShipperDetailsModel();
         shipperDetailsModel.shipperId = json["shipperId"];
         shipperDetailsModel.phoneNo = json["phoneNo"];
         shipperDetailsModel.shipperName = json["shipperName"];

@@ -12,5 +12,5 @@ Future<void> runDeleteTransporterApi(String transporterId) async {
   http.Response response = await http
       .delete(Uri.parse("$transporterApiUrl$additionalQuery$transporterId"));
   jsonData = json.decode(response.body);
-  print(jsonData.status.toString());
+  print(jsonData["status"]);
 }

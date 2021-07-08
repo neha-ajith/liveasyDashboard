@@ -1,4 +1,4 @@
-class ShipperDetailsModal {
+class ShipperDetailsModel {
   String? shipperId;
   double? phoneNo;
   String? shipperName;
@@ -7,7 +7,7 @@ class ShipperDetailsModal {
   bool? companyApproved;
   bool? accountVerificationInProgress;
 
-  ShipperDetailsModal(
+  ShipperDetailsModel(
       {this.shipperId,
       this.phoneNo,
       this.shipperName,

@@ -4,15 +4,15 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:liveasy_admin/models/transporterApiModel.dart';
 
-Future<List<TransporterDetailsModal>> runGetTransporterApi(
+Future<List<TransporterDetailsModel>> runGetTransporterApi(
     String choosenValue) async {
   final String transporterApiUrl =
       '${dotenv.env['transporterApiUrl'].toString()}';
   final String additionalQuery = '?transporterApproved=';
   String transApproved;
 
-  List<TransporterDetailsModal> card1 = [];
-  List<TransporterDetailsModal> card2 = [];
+  List<TransporterDetailsModel> card1 = [];
+  List<TransporterDetailsModel> card2 = [];
   http.Response response;
   var jsonData;
 
@@ -24,8 +24,8 @@ Future<List<TransporterDetailsModal>> runGetTransporterApi(
 
     jsonData = json.decode(response.body);
     for (var json in jsonData) {
-      TransporterDetailsModal transporterDetailsModel =
-          TransporterDetailsModal();
+      TransporterDetailsModel transporterDetailsModel =
+          TransporterDetailsModel();
       transporterDetailsModel.transporterId = json["transporterId"];
       transporterDetailsModel.phoneNo = json["phoneNo"];
       transporterDetailsModel.transporterName = json["transporterName"];
@@ -46,8 +46,8 @@ Future<List<TransporterDetailsModal>> runGetTransporterApi(
     jsonData = json.decode(response.body);
     for (var json in jsonData) {
       if (json['accountVerificationInProgress']) {
-        TransporterDetailsModal transporterDetailsModel =
-            TransporterDetailsModal();
+        TransporterDetailsModel transporterDetailsModel =
+            TransporterDetailsModel();
         transporterDetailsModel.transporterId = json["transporterId"];
         transporterDetailsModel.phoneNo = json["phoneNo"];
         transporterDetailsModel.transporterName = json["transporterName"];

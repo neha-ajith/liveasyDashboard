@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-Future runPutShipperApi(
+Future<String> runPutShipperApi(
     {required Map toBeUpdated, required String shipperId}) async {
   final String shipperApiUrl = '${dotenv.env['shipperApiUrl'].toString()}';
   final String additionalQuery = '/';

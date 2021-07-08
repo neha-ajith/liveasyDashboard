@@ -17,7 +17,6 @@ Future runPutTransporterApi(
       body: body);
   if (response.statusCode == 200) {
     var decodedResponse = json.decode(response.body);
-    print(decodedResponse);
     if (decodedResponse["status"].toString() == "Success") {
       return "Success";
     } else {

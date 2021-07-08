@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 class TransporterController extends GetxController {
-  RxString choosenTransporterFilter = "All".obs;
+  RxString choosenTransporterFilter = "Pending".obs;
 
   void updateOnTransporterFilterValue(String newValue) {
     choosenTransporterFilter.value = newValue;

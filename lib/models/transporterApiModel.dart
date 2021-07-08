@@ -1,4 +1,4 @@
-class TransporterDetailsModal {
+class TransporterDetailsModel {
   String? transporterId;
   double? phoneNo;
   String? transporterName;
@@ -8,7 +8,7 @@ class TransporterDetailsModal {
   bool? companyApproved;
   bool? accountVerificationInProgress;
 
-  TransporterDetailsModal(
+  TransporterDetailsModel(
       {this.transporterId,
       this.phoneNo,
       this.transporterName,

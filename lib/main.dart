@@ -25,11 +25,10 @@ class _LiveasyAdminState extends State<LiveasyAdmin> {
         future: Authentication.getUser(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data != null) {
-            List<String> data = snapshot.data;
             return GetMaterialApp(
                 title: "Liveasy Admin",
                 theme: ThemeData(fontFamily: 'montserrat'),
-                home: HomeScreen(userData: data));
+                home: HomeScreen(userData: snapshot.data));
           } else {
             return GetMaterialApp(
               title: "Liveasy Admin",

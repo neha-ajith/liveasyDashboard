@@ -8,23 +8,27 @@ import 'package:liveasy_admin/constants/screenSizeConfig.dart';
 
 // ignore: must_be_immutable
 class FilterButtonWidget extends StatefulWidget {
-  String? type;
-  FilterButtonWidget({Key? key, required type}) : super(key: key);
+  final String type;
+  FilterButtonWidget({Key? key, required this.type}) : super(key: key);
 
   @override
   _FilterButtonWidgetState createState() => _FilterButtonWidgetState();
 }
 
 class _FilterButtonWidgetState extends State<FilterButtonWidget> {
-  ShipperController shipperController = Get.put(ShipperController());
-  TransporterController transporterController =
-      Get.put(TransporterController());
   double safeBlockVertical = SizeConfig.safeBlockVertical!;
   double safeBlockHorizontal = SizeConfig.safeBlockHorizontal!;
   List<String> filterItem = ["All", "Verified", "Pending"];
+  var shipperController;
+  var transporterController;
 
   @override
   Widget build(BuildContext context) {
+    if (widget.type.toString() == "Shipper") {
+      shipperController = Get.find<ShipperController>();
+    } else {
+      transporterController = Get.find<TransporterController>();
+    }
     return Container(
         height: safeBlockVertical * 32,
         width: safeBlockHorizontal * 90,
