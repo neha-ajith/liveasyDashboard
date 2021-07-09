@@ -1,6 +1,6 @@
 {
-    "name": "liveasydashboard",
-    "short_name": "liveasydashboard",
+    "name": "liveasy_admin",
+    "short_name": "liveasy_admin",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
