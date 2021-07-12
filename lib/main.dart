@@ -24,17 +24,16 @@ class _LiveasyAdminState extends State<LiveasyAdmin> {
     return FutureBuilder(
         future: Authentication.getUser(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.data != null) {
+          if (snapshot.hasData) {
             return GetMaterialApp(
                 title: "Liveasy Admin",
                 theme: ThemeData(fontFamily: 'montserrat'),
                 home: HomeScreen(userData: snapshot.data));
           } else {
             return GetMaterialApp(
-              title: "Liveasy Admin",
-              theme: ThemeData(fontFamily: 'montserrat'),
-              home: LoginScreen(),
-            );
+                title: "Liveasy Admin",
+                theme: ThemeData(fontFamily: 'montserrat'),
+                home: LoginScreen());
           }
         });
   }

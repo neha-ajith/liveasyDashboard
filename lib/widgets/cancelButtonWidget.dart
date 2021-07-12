@@ -5,8 +5,7 @@ import 'package:liveasy_admin/constants/screenSizeConfig.dart';
 import 'package:liveasy_admin/constants/space.dart';
 
 // ignore: must_be_immutable
-class ApproveButtonWidget extends StatelessWidget {
-  ApproveButtonWidget({Key? key, required String type}) : super(key: key);
+class CancelButtonWidget extends StatelessWidget {
   double height = SizeConfig.safeBlockVertical!;
   double width = SizeConfig.safeBlockHorizontal!;
 
@@ -14,21 +13,22 @@ class ApproveButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
         style: TextButton.styleFrom(
-            fixedSize: Size(width * 78, height * 26),
-            backgroundColor: signInColor,
+            fixedSize: Size(width * 165, height * 32),
+            backgroundColor: white,
             shape: RoundedRectangleBorder(
-                side: BorderSide(color: signInColor),
+                side: BorderSide(color: black),
                 borderRadius: BorderRadius.circular(radius_25))),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
         child: Container(
-            height: height * 12,
-            width: width * 42,
             child: FittedBox(
-                fit: BoxFit.cover,
-                child: Text('Approve',
+                fit: BoxFit.contain,
+                child: Text('Cancel',
                     style: TextStyle(
-                        color: white,
-                        fontSize: 10,
+                        fontStyle: FontStyle.normal,
+                        color: black,
+                        fontSize: 16,
                         fontWeight: regularWeight)))));
   }
 }

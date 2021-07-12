@@ -7,7 +7,6 @@ const Color greyColor = Color(0xFF3A3A3A);
 const Color forgotColor = Color(0xFFEF4646);
 const Color signInColor = Color(0xFF000066);
 const Color tabSelection = Color(0xFFC4C4C4);
-const Color shadow = Color(0x0D000000);
 const Color visitor = Color(0xFFFFCF87);
 const Color appDownload = Color(0xFFFF8787);
 const Color activeTransporter = Color(0xFF87F0FF);

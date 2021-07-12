@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:liveasy_admin/constants/color.dart';
-import 'package:liveasy_admin/constants/fontSize.dart';
 import 'package:liveasy_admin/constants/fontWeight.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
 import 'package:liveasy_admin/constants/space.dart';
 
 class Dashboard extends StatefulWidget {
-  Dashboard({Key? key}) : super(key: key);
   @override
   _DashboardState createState() => _DashboardState();
 }
 
 class _DashboardState extends State<Dashboard> {
-  double safeBlockVertical = SizeConfig.safeBlockVertical!;
-  double safeBlockHorizontal = SizeConfig.safeBlockHorizontal!;
-  late int visitorsOnSite; //TODO: Data Source
-  late int appDownloads;
-  late int activeTransporters;
-  late int activeShippers;
+  double height = SizeConfig.safeBlockVertical!;
+  double width = SizeConfig.safeBlockHorizontal!;
+  int? visitorsOnSite; //TODO: Data Source
+  int? appDownloads;
+  int? activeTransporters;
+  int? activeShippers;
 
   @override
   Widget build(BuildContext context) {
@@ -25,109 +23,160 @@ class _DashboardState extends State<Dashboard> {
     appDownloads = 449;
     activeTransporters = 449;
     activeShippers = 449;
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      SizedBox(height: safeBlockVertical * 37),
-      Text('Dashboard',
-          style: TextStyle(
-              fontSize: size_32, color: greyColor, fontWeight: regularWeight)),
-      SizedBox(height: safeBlockVertical * 40),
-      Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-        Card(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(radius_25)),
-            shadowColor: black,
-            elevation: 2.0,
-            child: Container(
-                height: safeBlockVertical * 108,
-                width: safeBlockHorizontal * 265, //260
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('$visitorsOnSite',
-                          style: TextStyle(
-                              fontSize: size_34,
-                              color: visitor,
-                              fontWeight: normalWeight)),
-                      SizedBox(
-                        height: safeBlockVertical * 5,
-                      ),
-                      Text('VISITORS ON SITE',
-                          style:
-                              TextStyle(color: signInColor, fontSize: size_18))
-                    ]))),
-        SizedBox(width: safeBlockHorizontal * 20),
-        Card(
-            shadowColor: black,
-            elevation: 2.0,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(radius_25)),
-            child: Container(
-                height: safeBlockVertical * 108,
-                width: safeBlockHorizontal * 260, //265
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('$appDownloads',
-                          style: TextStyle(
-                              fontSize: size_34,
-                              color: appDownload,
-                              fontWeight: normalWeight)),
-                      SizedBox(
-                        height: safeBlockVertical * 5,
-                      ),
-                      Text('APP DOWNLOADS',
-                          style:
-                              TextStyle(color: signInColor, fontSize: size_18))
-                    ]))),
-        SizedBox(width: safeBlockHorizontal * 20),
-        Card(
-            shadowColor: black,
-            elevation: 2.0,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(radius_25)),
-            child: Container(
-                height: safeBlockVertical * 108,
-                width: safeBlockHorizontal * 260, //265
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('$activeTransporters',
-                          style: TextStyle(
-                              fontSize: size_34,
-                              color: activeTransporter,
-                              fontWeight: normalWeight)),
-                      SizedBox(
-                        height: safeBlockVertical * 5,
-                      ),
-                      Text('ACTIVE TRANSPORTERS',
-                          style:
-                              TextStyle(color: signInColor, fontSize: size_18))
-                    ]))),
-        SizedBox(width: safeBlockHorizontal * 20),
-        Card(
-            shadowColor: black,
-            elevation: 2.0,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(radius_25)),
-            child: Container(
-                height: safeBlockVertical * 108,
-                width: safeBlockHorizontal * 260, //265
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('$activeShippers',
-                          style: TextStyle(
-                              fontSize: size_34,
-                              color: activeTransporter,
-                              fontWeight: normalWeight)),
-                      SizedBox(
-                        height: safeBlockVertical * 5,
-                      ),
-                      Text('ACTIVE SHIPPERS',
-                          style:
-                              TextStyle(color: signInColor, fontSize: size_18))
-                    ])))
-      ])
-    ]);
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: height * 37),
+          Container(
+              height: height * 40,
+              width: width * 178,
+              child: FittedBox(
+                fit: BoxFit.cover,
+                child: Text('Dashboard',
+                    style: TextStyle(
+                        fontSize: 32,
+                        color: greyColor,
+                        fontWeight: regularWeight)),
+              )),
+          SizedBox(height: height * 40),
+          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+            Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(radius_25)),
+                shadowColor: black,
+                elevation: 2.0,
+                child: Container(
+                    height: height * 108,
+                    width: width * 265,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                              height: height * 41,
+                              child: FittedBox(
+                                  fit: BoxFit.fitHeight,
+                                  child: Text('$visitorsOnSite',
+                                      style: TextStyle(
+                                          fontSize: 34,
+                                          color: visitor,
+                                          fontWeight: mediumBoldWeight)))),
+                          SizedBox(height: height * 5),
+                          Container(
+                              height: height * 22,
+                              width: width * 164,
+                              child: FittedBox(
+                                  fit: BoxFit.cover,
+                                  child: Text('VISITORS ON SITE',
+                                      style: TextStyle(
+                                          color: signInColor,
+                                          fontSize: 18,
+                                          fontWeight: normalWeight))))
+                        ]))),
+            SizedBox(width: width * 20),
+            Card(
+                shadowColor: black,
+                elevation: 2.0,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(radius_25)),
+                child: Container(
+                    height: height * 108,
+                    width: width * 265,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                              height: height * 41,
+                              child: FittedBox(
+                                  fit: BoxFit.fitHeight,
+                                  child: Text('$appDownloads',
+                                      style: TextStyle(
+                                          fontSize: 34,
+                                          color: appDownload,
+                                          fontWeight: mediumBoldWeight)))),
+                          SizedBox(height: height * 5),
+                          Container(
+                              height: height * 22,
+                              width: width * 172,
+                              child: FittedBox(
+                                  fit: BoxFit.cover,
+                                  child: Text('APP DOWNLOADS',
+                                      style: TextStyle(
+                                          color: signInColor,
+                                          fontSize: 18,
+                                          fontWeight: normalWeight))))
+                        ]))),
+            SizedBox(width: width * 20),
+            Card(
+                shadowColor: black,
+                elevation: 2.0,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(radius_25)),
+                child: Container(
+                    height: height * 108,
+                    width: width * 266,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                              height: height * 41,
+                              child: FittedBox(
+                                  fit: BoxFit.fitHeight,
+                                  child: Text('$activeTransporters',
+                                      style: TextStyle(
+                                          fontSize: 34,
+                                          color: activeTransporter,
+                                          fontWeight: mediumBoldWeight)))),
+                          SizedBox(height: height * 5),
+                          Container(
+                              height: height * 22,
+                              width: width * 210,
+                              child: FittedBox(
+                                  fit: BoxFit.cover,
+                                  child: Text('ACTIVE TRANSPORTER',
+                                      style: TextStyle(
+                                          color: signInColor,
+                                          fontSize: 18,
+                                          fontWeight: normalWeight))))
+                        ]))),
+            SizedBox(width: width * 20),
+            Card(
+                shadowColor: black,
+                elevation: 2.0,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(radius_25)),
+                child: Container(
+                    height: height * 108,
+                    width: width * 265,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                              height: height * 41,
+                              child: FittedBox(
+                                  fit: BoxFit.fitHeight,
+                                  child: Text('$activeShippers',
+                                      style: TextStyle(
+                                          fontSize: 34,
+                                          color: activeShipper,
+                                          fontWeight: mediumBoldWeight)))),
+                          SizedBox(height: height * 5),
+                          Container(
+                              height: height * 22,
+                              width: width * 153,
+                              child: FittedBox(
+                                  fit: BoxFit.cover,
+                                  child: Text('ACTIVE SHIPPER',
+                                      style: TextStyle(
+                                          color: signInColor,
+                                          fontSize: 18,
+                                          fontWeight: normalWeight))))
+                        ]))),
+          ])
+        ]);
   }
 }
