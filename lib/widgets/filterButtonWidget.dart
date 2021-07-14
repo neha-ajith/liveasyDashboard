@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:liveasy_admin/constants/borderWidth.dart';
-import 'package:liveasy_admin/constants/color.dart';
 import 'package:get/get.dart';
 import 'package:liveasy_admin/controller/ShipperController.dart';
 import 'package:liveasy_admin/controller/TransporterController.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
+import 'package:liveasy_admin/constants/borderWidth.dart';
+import 'package:liveasy_admin/constants/color.dart';
 
 // ignore: must_be_immutable
 class FilterButtonWidget extends StatefulWidget {
   final String type;
-  FilterButtonWidget({Key? key, required this.type}) : super(key: key);
+  FilterButtonWidget({required this.type});
 
   @override
   _FilterButtonWidgetState createState() => _FilterButtonWidgetState();
 }
 
 class _FilterButtonWidgetState extends State<FilterButtonWidget> {
-  double safeBlockVertical = SizeConfig.safeBlockVertical!;
-  double safeBlockHorizontal = SizeConfig.safeBlockHorizontal!;
+  double height = SizeConfig.safeBlockVertical!;
+  double width = SizeConfig.safeBlockHorizontal!;
   List<String> filterItem = ["All", "Verified", "Pending"];
   var shipperController;
   var transporterController;
+  String? choosenValue;
 
   @override
   Widget build(BuildContext context) {
@@ -30,42 +31,61 @@ class _FilterButtonWidgetState extends State<FilterButtonWidget> {
       transporterController = Get.find<TransporterController>();
     }
     return Container(
-        height: safeBlockVertical * 32,
-        width: safeBlockHorizontal * 90,
+        height: height * 40,
+        width: width * 120,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25),
-            border: Border.all(width: borderWidth_1, color: greyColor)),
-        child: DropdownButton(
-            hint: Center(
-                child: Text('Filter',
-                    style: TextStyle(fontSize: 15, color: black))),
-            style: TextStyle(fontSize: 15, color: black),
-            dropdownColor: white,
-            isExpanded: true,
-            icon: Image.asset(
-              'icons/filterIcon.png',
-              alignment: Alignment.centerRight,
-            ),
-            underline: SizedBox(width: 20),
-            value: widget.type == "Shipper"
-                ? shipperController.choosenShipperFilter.value
-                : transporterController.choosenTransporterFilter.value,
-            onChanged: (newValue) {
-              setState(() {
-                if (widget.type == "Shipper") {
-                  shipperController
-                      .updateOnShipperFilterValue(newValue.toString());
-                } else {
-                  transporterController
-                      .updateOnTransporterFilterValue(newValue.toString());
-                }
-              });
-            },
-            items: filterItem.map((valueItem) {
-              return DropdownMenuItem(
-                value: valueItem,
-                child: Text(valueItem),
-              );
-            }).toList()));
+            borderRadius: BorderRadius.circular(30),
+            border: Border.all(width: borderWidth_0pt85, color: signInColor)),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton(
+              hint: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Container(
+                    height: height * 30,
+                    child: FittedBox(
+                        fit: BoxFit.fitHeight,
+                        child: Text('Filter',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: black,
+                                fontSize: 18,
+                                fontFamily: 'montserrat'))))
+              ]),
+              icon: Container(
+                  padding: EdgeInsets.only(right: width * 20),
+                  height: height * 28,
+                  width: width * 30,
+                  child: FittedBox(
+                      fit: BoxFit.cover,
+                      child:
+                          Image.asset('icons/filterIcon.png', color: black))),
+              dropdownColor: white,
+              isExpanded: true,
+              value: choosenValue,
+              onChanged: (newValue) {
+                setState(() {
+                  choosenValue = newValue.toString();
+                  if (widget.type == "Shipper") {
+                    shipperController
+                        .updateOnShipperFilterValue(newValue.toString());
+                  } else {
+                    transporterController
+                        .updateOnTransporterFilterValue(newValue.toString());
+                  }
+                });
+              },
+              menuMaxHeight: height * 250,
+              items: filterItem.map((valueItem) {
+                return DropdownMenuItem(
+                    value: valueItem,
+                    child: Container(
+                        padding: EdgeInsets.only(left: width * 15),
+                        child: FittedBox(
+                            fit: BoxFit.cover,
+                            child: Text(valueItem,
+                                textAlign: TextAlign.left,
+                                style:
+                                    TextStyle(fontSize: 15, color: black)))));
+              }).toList()),
+        ));
   }
 }

@@ -2,49 +2,56 @@ import 'package:flutter/material.dart';
 import 'package:liveasy_admin/models/shipperApiModel.dart';
 import 'package:liveasy_admin/screens/updateShipperScreen.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
-import 'package:liveasy_admin/widgets/deleteDialogBox.dart';
+import 'package:liveasy_admin/widgets/showDialog.dart';
 
-class DataSource extends DataTableSource {
+class ShipperDataSource extends DataTableSource {
   final List<ShipperDetailsModel> _data;
   final BuildContext context;
-  DataSource({required List<ShipperDetailsModel> data, required this.context})
+  ShipperDataSource(
+      {required List<ShipperDetailsModel> data, required this.context})
       : _data = data;
-  double safeBlockHorizontal = SizeConfig.safeBlockHorizontal!;
-  double safeBlockVertical = SizeConfig.safeBlockVertical!;
+  double height = SizeConfig.safeBlockVertical!;
+  double width = SizeConfig.safeBlockHorizontal!;
 
   @override
   DataRow getRow(int index) {
     final _userdata = _data[index];
     return DataRow.byIndex(index: index, cells: [
       DataCell(Icon(Icons.person_outlined)),
-      DataCell(Text('${_userdata.shipperName}', textAlign: TextAlign.center)),
-      DataCell(Text('${_userdata.phoneNo}', textAlign: TextAlign.center)),
-      DataCell(
-          Text('${_userdata.shipperLocation}', textAlign: TextAlign.center)),
+      DataCell(Text('${_userdata.shipperName}')),
+      DataCell(Text('${_userdata.phoneNo}')),
+      DataCell(Text('${_userdata.shipperLocation}')),
       DataCell(Center(child: Text('${_userdata.companyName}'))),
       if (_userdata.companyApproved!)
-        DataCell(Text('Verified', textAlign: TextAlign.center))
+        DataCell(Text('Verified'))
       else if (_userdata.accountVerificationInProgress!)
-        DataCell(Text('Pending', textAlign: TextAlign.center))
+        DataCell(Text('Pending'))
       else
-        DataCell(Text('Cancelled', textAlign: TextAlign.center)),
-      DataCell(Row(
-        children: [
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>
-                        UpdateShipperScreen(shipperDetails: _userdata)));
-              },
-              icon: Icon(Icons.rate_review_outlined)),
-          SizedBox(width: safeBlockHorizontal * 12),
-          IconButton(
-              onPressed: () async {
-                deleteDialog(context, _userdata.shipperId!);
-              },
-              icon: Icon(Icons.delete_outlined))
-        ],
-      ))
+        DataCell(Text('Cancelled')),
+      DataCell(Row(children: [
+        IconButton(
+            icon: Container(
+                height: height * 19,
+                width: width * 19,
+                child: FittedBox(
+                    fit: BoxFit.cover, child: Image.asset('icons/edit.png'))),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) =>
+                      UpdateShipperScreen(shipperDetails: _userdata)));
+            }),
+        SizedBox(width: width * 12),
+        IconButton(
+            icon: Icon(Icons.delete_outlined),
+            onPressed: () async {
+              dialogBox(
+                  context,
+                  "Alert",
+                  "Are you sure to delete this User ID\n This action is non retrivable",
+                  _userdata.shipperId!,
+                  null);
+            })
+      ]))
     ]);
   }
 

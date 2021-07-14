@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 class ShipperController extends GetxController {
-  RxString choosenShipperFilter = "Pending".obs;
+  RxString choosenShipperFilter = "All".obs;
 
   void updateOnShipperFilterValue(String newValue) {
     choosenShipperFilter.value = newValue;
@@ -17,5 +17,15 @@ class ShipperController extends GetxController {
 
   void updateOnShipperApproval(int newValue) {
     onShipperApprove.value = newValue;
+  }
+
+  RxBool onShipperAPIfails = false.obs;
+  void retryOnShipperAPIfails(bool newValue) {
+    onShipperAPIfails.value = newValue;
+  }
+
+  RxBool onShipperDocumentfails = false.obs;
+  void retryOnShipperDocumentfails(bool newValue) {
+    onShipperDocumentfails.value = newValue;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:liveasy_admin/widgets/showDialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 import 'package:liveasy_admin/screens/homeScreen.dart';
@@ -10,15 +11,6 @@ class Authentication {
   static String? userUid;
   static String? userEmail;
   static List<String> userData = [];
-
-  static SnackBar customSnackBar({required String content}) {
-    return SnackBar(
-      content: Center(
-          child: Text(
-        content,
-      )),
-    );
-  }
 
   static Future<List<String>?> getUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -52,12 +44,12 @@ class Authentication {
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'invalid-email':
-          ScaffoldMessenger.of(context)
-              .showSnackBar(customSnackBar(content: 'Email not Found'));
+          dialogBox(context, 'Login Failed',
+              'Please enter a valid email address', null, null);
           break;
         case 'wrong-password':
-          ScaffoldMessenger.of(context)
-              .showSnackBar(customSnackBar(content: 'Invalid Password'));
+          dialogBox(context, 'Login Failed', 'Please enter a valid password',
+              null, null);
           break;
       }
     }
@@ -70,9 +62,6 @@ class Authentication {
     userData.clear();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('auth', false);
-
-    ScaffoldMessenger.of(context)
-        .showSnackBar(customSnackBar(content: 'Signed Out'));
     Get.to(() => LoginScreen());
   }
 }

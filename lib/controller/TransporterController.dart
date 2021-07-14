@@ -18,4 +18,14 @@ class TransporterController extends GetxController {
   void updateOnTransporterApproval(int newValue) {
     onTransporterApprove.value = newValue;
   }
+
+  RxBool onTransporterAPIfails = false.obs;
+  void retryOnTransporterAPIfails(bool newValue) {
+    onTransporterAPIfails.value = newValue;
+  }
+
+  RxBool onTransporterDocumentsfails = false.obs;
+  void retryOnTransporterDocumentsfails(bool newValue) {
+    onTransporterDocumentsfails.value = newValue;
+  }
 }
