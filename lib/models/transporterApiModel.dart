@@ -1,6 +1,6 @@
 class TransporterDetailsModel {
   String? transporterId;
-  double? phoneNo;
+  String? phoneNo;
   String? transporterName;
   String? companyName;
   String? transporterLocation;
