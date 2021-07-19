@@ -4,8 +4,9 @@ import 'package:liveasy_admin/constants/screenSizeConfig.dart';
 
 // ignore: must_be_immutable
 class TableStructure extends StatefulWidget {
+  String type;
   var dts;
-  TableStructure({required String type, required this.dts});
+  TableStructure({required this.type, required this.dts});
 
   @override
   _TableStructureState createState() => _TableStructureState();
@@ -20,6 +21,7 @@ class _TableStructureState extends State<TableStructure> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.type);
     var tableItemsCount = widget.dts.rowCount;
     var isRowCountLessDefault = tableItemsCount < defaultRowsPerPage;
     _rowsPerPage = isRowCountLessDefault ? tableItemsCount : defaultRowsPerPage;
@@ -40,10 +42,19 @@ class _TableStructureState extends State<TableStructure> {
           DataColumn(
               label: Text('Company name',
                   style: TextStyle(fontWeight: boldWeight))),
+          if (widget.type == "Shipper")
+            DataColumn(
+                label: Text('Status', style: TextStyle(fontWeight: boldWeight)))
+          else
+            DataColumn(
+                label: Text('Transporter Status',
+                    style: TextStyle(fontWeight: boldWeight))),
+          if (widget.type == "Transporter")
+            DataColumn(
+                label: Text('Company Status',
+                    style: TextStyle(fontWeight: boldWeight))),
           DataColumn(
-              label: Text('Status', style: TextStyle(fontWeight: boldWeight))),
-          DataColumn(
-              label: Text('Actions', style: TextStyle(fontWeight: boldWeight))),
+              label: Text('Actions', style: TextStyle(fontWeight: boldWeight)))
         ],
         onRowsPerPageChanged: isRowCountLessDefault
             ? null

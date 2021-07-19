@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:liveasy_admin/widgets/showDialog.dart';
+import 'package:liveasy_admin/services/showDialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 import 'package:liveasy_admin/screens/homeScreen.dart';

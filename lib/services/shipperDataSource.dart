@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:liveasy_admin/models/shipperApiModel.dart';
 import 'package:liveasy_admin/screens/updateShipperScreen.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
-import 'package:liveasy_admin/widgets/showDialog.dart';
+import 'package:liveasy_admin/services/showDialog.dart';
 
 class ShipperDataSource extends DataTableSource {
   final List<ShipperDetailsModel> _data;
@@ -21,13 +21,13 @@ class ShipperDataSource extends DataTableSource {
       DataCell(Text('${_userdata.shipperName}')),
       DataCell(Text('${_userdata.phoneNo}')),
       DataCell(Text('${_userdata.shipperLocation}')),
-      DataCell(Center(child: Text('${_userdata.companyName}'))),
+      DataCell(Text('${_userdata.companyName}')),
       if (_userdata.companyApproved!)
         DataCell(Text('Verified'))
       else if (_userdata.accountVerificationInProgress!)
         DataCell(Text('Pending'))
       else
-        DataCell(Text('Cancelled')),
+        DataCell(Text('New/Rejected')),
       DataCell(Row(children: [
         IconButton(
             icon: Container(
@@ -47,7 +47,7 @@ class ShipperDataSource extends DataTableSource {
               dialogBox(
                   context,
                   "Alert",
-                  "Are you sure to delete this User ID\n This action is non retrivable",
+                  "Are you sure to Delete this User ID.\n This action is non retriveable",
                   _userdata.shipperId!,
                   null);
             })

@@ -18,7 +18,7 @@ class FilterButtonWidget extends StatefulWidget {
 class _FilterButtonWidgetState extends State<FilterButtonWidget> {
   double height = SizeConfig.safeBlockVertical!;
   double width = SizeConfig.safeBlockHorizontal!;
-  List<String> filterItem = ["All", "Verified", "Pending"];
+  List<String> filterItem = ["All", "Verified", "Pending", "New/Rejected"];
   var shipperController;
   var transporterController;
   String? choosenValue;

@@ -1,6 +1,6 @@
 class ShipperDetailsModel {
   String? shipperId;
-  double? phoneNo;
+  String? phoneNo;
   String? shipperName;
   String? companyName;
   String? shipperLocation;
