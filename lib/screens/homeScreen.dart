@@ -73,8 +73,8 @@ class HomeScreenState extends State<HomeScreen>
                         ShipperDetailsScreen(),
                         ShipperActivitiesScreen(), //TODO: These Screens are empty
                         TransporterDetailsScreen(),
-                        TransporterActivitiesScreen(),
-                        GPSDetailsScreen()
+                        TransporterActivitiesScreen(), //TODO: These Screens are empty
+                        GPSDetailsScreen() //TODO: These Screens are empty
                       ]))
             ])));
   }

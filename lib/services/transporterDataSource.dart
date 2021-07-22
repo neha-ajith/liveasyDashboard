@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:liveasy_admin/models/transporterApiModel.dart';
 import 'package:liveasy_admin/screens/updateTransporterScreen.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
-import 'package:liveasy_admin/widgets/showDialog.dart';
+import 'package:liveasy_admin/services/showDialog.dart';
 
 class TransporterDataSource extends DataTableSource {
   final List<TransporterDetailsModel> _data;
@@ -18,16 +18,22 @@ class TransporterDataSource extends DataTableSource {
     final _userdata = _data[index];
     return DataRow.byIndex(index: index, cells: [
       DataCell(Icon(Icons.person_outlined)),
-      DataCell(Center(child: Text('${_userdata.transporterName}'))),
+      DataCell(Text('${_userdata.transporterName}')),
       DataCell(Text('${_userdata.phoneNo}')),
       DataCell(Text('${_userdata.transporterLocation}')),
-      DataCell(Center(child: Text('${_userdata.companyName}'))),
+      DataCell(Text('${_userdata.companyName}')),
       if (_userdata.transporterApproved!)
         DataCell(Text('Verified'))
       else if (_userdata.accountVerificationInProgress!)
         DataCell(Text('Pending'))
       else
-        DataCell(Text('Cancelled')),
+        DataCell(Text('New/Rejected')),
+      if (_userdata.companyApproved!)
+        DataCell(Text('Verified'))
+      else if (_userdata.companyApproved!)
+        DataCell(Text('Pending'))
+      else
+        DataCell(Text('New/Rejected')),
       DataCell(Row(children: [
         IconButton(
             icon: Container(
@@ -42,6 +48,7 @@ class TransporterDataSource extends DataTableSource {
             }),
         SizedBox(width: width * 12),
         IconButton(
+            icon: Icon(Icons.delete_outlined),
             onPressed: () async {
               dialogBox(
                   context,
@@ -49,8 +56,7 @@ class TransporterDataSource extends DataTableSource {
                   'Are you sure you want to Delete this User ID.\n This action is non retriveable',
                   _userdata.transporterId!,
                   null);
-            },
-            icon: Icon(Icons.delete_outlined))
+            })
       ]))
     ]);
   }

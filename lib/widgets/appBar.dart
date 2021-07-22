@@ -32,7 +32,7 @@ PreferredSize appBar() {
                         color: white, fontSize: 20, fontWeight: boldWeight)))),
         actions: [
           IconButton(
-              onPressed: () {}, // Search Logic pending
+              onPressed: () {}, // TODO: Search Logic pending
               icon: Icon(Icons.search),
               iconSize: 17),
           SizedBox(width: width * 19),
@@ -40,7 +40,7 @@ PreferredSize appBar() {
           SizedBox(width: width * 10),
           Center(
               child: IconButton(
-                  onPressed: () {}, //Admin Account settings
+                  onPressed: () {}, //TODO: Admin Account settings
                   icon: Icon(Icons.person),
                   iconSize: 25)),
           SignOutButtonWidget(),

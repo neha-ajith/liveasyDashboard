@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontWeight: boldWeight)))),
               SizedBox(height: height * 50),
               Container(
-                  height: height * 520,
+                  height: height * 580,
                   width: width * 585,
                   padding: EdgeInsets.only(
                       top: height * 64, left: width * 67, right: width * 68),
@@ -78,14 +78,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                         fontWeight: normalWeight)))),
                         SizedBox(height: height * 20),
                         AutofillGroup(
-                          child: buildTextField(
-                              "Email",
-                              _emailController,
-                              textFocusNodeEmail,
-                              textFocusNodePassword,
-                              'ex: zivapaul@gmail.com',
-                              context),
-                        ),
+                            child: BuildTextField(
+                                type: "Email",
+                                controller: _emailController,
+                                focusNode: textFocusNodeEmail,
+                                nextFocusNode: textFocusNodePassword,
+                                labelText: 'ex: zivapaul@gmail.com',
+                                context: context)),
                         SizedBox(height: height * 30),
                         Container(
                             height: height * 22,
@@ -97,15 +96,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                         color: black,
                                         fontSize: 18,
                                         fontWeight: regularWeight)))),
-                        SizedBox(height: height * 20),
-                        buildTextField(
-                            "Password",
-                            _passwordController,
-                            textFocusNodePassword,
-                            buttonFocusNodesignIn,
-                            'ex: Ziva123#',
-                            context),
-                        SizedBox(height: height * 50),
+                        SizedBox(height: height * 30),
+                        AutofillGroup(
+                            child: BuildTextField(
+                                type: "Password",
+                                controller: _passwordController,
+                                focusNode: textFocusNodePassword,
+                                nextFocusNode: buttonFocusNodesignIn,
+                                labelText: 'ex: Ziva123#',
+                                context: context)),
+                        SizedBox(height: height * 40),
                         Container(
                             height: height * 71,
                             width: width * 449,
