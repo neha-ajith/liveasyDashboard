@@ -13,7 +13,6 @@ Future<List<TransporterDetailsModel>> runGetTransporterApi(
     ac.gettransporterurl(),
   ]);
   final String transporterApiUrl = li[0];
-  print('print: $transporterApiUrl');
 
   final String additionalQuery = '?transporterApproved=';
   final String paginationQuery = '&pageNo=';

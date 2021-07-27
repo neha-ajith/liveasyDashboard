@@ -12,7 +12,6 @@ Future<List<ShipperDetailsModel>> runGetShipperApi(String choosenValue) async {
     ac.getshipperurl(),
   ]);
   final String shipperApiUrl = li[0];
-  print('print: $shipperApiUrl');
 
   final String additionalQuery = '?companyApproved=';
   final String paginationQuery = '&pageNo=';
