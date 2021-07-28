@@ -1,12 +1,59 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:liveasy_admin/constants/color.dart';
 import 'package:liveasy_admin/constants/fontWeight.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
 import 'package:liveasy_admin/widgets/signOutButton.dart';
 
+class SearchIconWidget extends StatefulWidget {
+  @override
+  _SearchIconWidgetState createState() => _SearchIconWidgetState();
+}
+
+class _SearchIconWidgetState extends State<SearchIconWidget> {
+
+  final TextEditingController filterPhoneNumber = TextEditingController();
+  Icon _searchIcon = Icon(Icons.search);
+  Widget _appBarTitle = new Text('Search Example');
+  List phoneNo = [];
+  List filteredPhoneNo = [];
+
+  void searchPressed() {
+    setState(() {
+      if(this._searchIcon.icon == Icons.search){
+        this._searchIcon = Icon(Icons.close);
+        this._appBarTitle = TextField(
+          controller: filterPhoneNumber,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            enabledBorder: InputBorder.none,
+            focusedBorder: InputBorder.none,
+            prefixIcon: Icon(Icons.search), hintText: "Search..."
+          ),
+        );
+      }else{
+        this._searchIcon = new Icon(Icons.search);
+        this._appBarTitle = new Text('Search Example');
+        filteredPhoneNo = phoneNo;
+        filterPhoneNumber.clear();
+      }
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+
+
+
 PreferredSize appBar() {
   double height = SizeConfig.safeBlockVertical!;
   double width = SizeConfig.safeBlockHorizontal!;
+
+
   return PreferredSize(
     preferredSize: Size(width * 1440, height * 45),
     child: AppBar(
@@ -32,7 +79,7 @@ PreferredSize appBar() {
                         color: white, fontSize: 20, fontWeight: boldWeight)))),
         actions: [
           IconButton(
-              onPressed: () {}, // TODO: Search Logic pending
+              onPressed: search, // TODO: Search Logic pending
               icon: Icon(Icons.search),
               iconSize: 17),
           SizedBox(width: width * 19),
@@ -47,4 +94,11 @@ PreferredSize appBar() {
           SizedBox(width: width * 50)
         ]),
   );
+
+}
+
+
+final searchPhoneNo = SearchIconWidget();
+void search() {
+  searchPhoneNo.searchPressed();
 }
