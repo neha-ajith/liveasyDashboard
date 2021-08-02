@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:liveasy_admin/constants/radius.dart';
 import 'package:liveasy_admin/services/authentication.dart';
 import 'package:liveasy_admin/constants/borderWidth.dart';
 import 'package:liveasy_admin/constants/color.dart';
@@ -62,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: white,
                       border: Border.all(
                           color: black.withOpacity(0.20), width: borderWidth_1),
-                      borderRadius: BorderRadius.circular(radius_30)),
+                      borderRadius: BorderRadius.circular(radius_4+2)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -116,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     shape: RoundedRectangleBorder(
                                         side: BorderSide(color: signInColor),
                                         borderRadius:
-                                            BorderRadius.circular(radius_25))),
+                                            BorderRadius.circular(radius_3+1))),
                                 onPressed: () {
                                   Authentication.signInWithEmail(
                                       context: context,
