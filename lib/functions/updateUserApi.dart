@@ -2,16 +2,25 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'accessingurl.dart' as ac;
 
 Future runPutUserApi(
     {required String type,
-    required Map toBeUpdated,
-    required String userId}) async {
+      required Map toBeUpdated,
+      required String userId}) async {
   String apiUrl;
   if (type == "Shipper") {
-    apiUrl = '${dotenv.env['shipperApiUrl'].toString()}';
+    //apiUrl = '${dotenv.env['shipperApiUrl'].toString()}';
+    List<String> li = await Future.wait<String>([
+      ac.getshipperurl(),
+    ]);
+    apiUrl = li[0];
   } else {
-    apiUrl = '${dotenv.env['transporterApiUrl'].toString()}';
+    //apiUrl = '${dotenv.env['transporterApiUrl'].toString()}';
+    List<String> li = await Future.wait<String>([
+      ac.gettransporterurl(),
+    ]);
+    apiUrl = li[0];
   }
   final String additionalQuery = '/';
   String body = json.encode(toBeUpdated);
