@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:liveasy_admin/constants/space.dart';
 import 'package:liveasy_admin/functions/updateDocumentApi.dart';
 import 'package:liveasy_admin/functions/updateUserApi.dart';
 import 'package:liveasy_admin/models/transporterApiModel.dart';
@@ -278,7 +279,7 @@ class _UpdateTransporterScreenState extends State<UpdateTransporterScreen> {
                                   "DataNotUpdated");
                             }
                           }),
-                      SizedBox(width: width * 40),
+                      SizedBox(width: width * space_8),
                       TextButton(
                           child: Text('Cancel'),
                           onPressed: () {
