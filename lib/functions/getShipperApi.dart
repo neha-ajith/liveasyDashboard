@@ -3,9 +3,16 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:liveasy_admin/models/shipperApiModel.dart';
+import 'accessingurl.dart' as ac;
 
 Future<List<ShipperDetailsModel>> runGetShipperApi(String choosenValue) async {
-  final String shipperApiUrl = '${dotenv.env['shipperApiUrl'].toString()}';
+
+  //final String shipperApiUrl = '${dotenv.env['shipperApiUrl'].toString()}';
+  List<String> li = await Future.wait<String>([
+    ac.getshipperurl(),
+  ]);
+  final String shipperApiUrl = li[0];
+
   final String additionalQuery = '?companyApproved=';
   final String paginationQuery = '&pageNo=';
   List<ShipperDetailsModel> card1 = [];
@@ -30,7 +37,7 @@ Future<List<ShipperDetailsModel>> runGetShipperApi(String choosenValue) async {
         shipperDetailsModel.shipperLocation = json["shipperLocation"];
         shipperDetailsModel.companyApproved = json["companyApproved"];
         shipperDetailsModel.accountVerificationInProgress =
-            json["accountVerificationInProgress"];
+        json["accountVerificationInProgress"];
         card1.add(shipperDetailsModel);
       }
     }
@@ -61,7 +68,7 @@ Future<List<ShipperDetailsModel>> runGetShipperApi(String choosenValue) async {
           shipperDetailsModel.shipperLocation = json["shipperLocation"];
           shipperDetailsModel.companyApproved = json["companyApproved"];
           shipperDetailsModel.accountVerificationInProgress =
-              json["accountVerificationInProgress"];
+          json["accountVerificationInProgress"];
           card2.add(shipperDetailsModel);
         }
         if ((choosenValue == "All" || choosenValue == "New/Rejected") &&
@@ -74,7 +81,7 @@ Future<List<ShipperDetailsModel>> runGetShipperApi(String choosenValue) async {
           shipperDetailsModel.shipperLocation = json["shipperLocation"];
           shipperDetailsModel.companyApproved = json["companyApproved"];
           shipperDetailsModel.accountVerificationInProgress =
-              json["accountVerificationInProgress"];
+          json["accountVerificationInProgress"];
           card3.add(shipperDetailsModel);
         }
       }
