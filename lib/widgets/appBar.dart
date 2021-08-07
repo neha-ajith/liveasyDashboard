@@ -1,50 +1,334 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:liveasy_admin/constants/color.dart';
+import 'package:liveasy_admin/constants/fontSize.dart';
 import 'package:liveasy_admin/constants/fontWeight.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
+import 'package:liveasy_admin/constants/space.dart';
+import 'package:liveasy_admin/controller/ShipperController.dart';
+import 'package:liveasy_admin/controller/TransporterController.dart';
+import 'package:liveasy_admin/controller/searchButtonController.dart';
+import 'package:liveasy_admin/screens/updateShipperScreen.dart';
+import 'package:liveasy_admin/screens/updateTransporterScreen.dart';
+import 'package:liveasy_admin/services/getshipper_transporterApi.dart';
 import 'package:liveasy_admin/widgets/signOutButton.dart';
+import 'package:get/get.dart';
 
 PreferredSize appBar() {
+  SearchButtonController searchButtonController =
+      Get.put(SearchButtonController());
   double height = SizeConfig.safeBlockVertical!;
   double width = SizeConfig.safeBlockHorizontal!;
+  final filterPhoneNumber = TextEditingController();
+
   return PreferredSize(
-    preferredSize: Size(width * 1440, height * 45),
+    preferredSize: Size(width * space_4 * (space_14 + 2), height * space_9),
     child: AppBar(
-        backgroundColor: signInColor,
-        leading: Row(children: [
-          SizedBox(width: width * 23),
+      backgroundColor: signInColor,
+      leading: Row(
+        children: [
+          SizedBox(width: width * (space_4 + 3)),
           Container(
-              height: height * 25,
-              width: width * 25,
-              child: FittedBox(
-                  fit: BoxFit.cover,
-                  child: Image.asset('icons/liveasy_logo_white.png',
-                      width: width * 25, height: height * 24.33)))
-        ]),
-        titleSpacing: width * 10,
-        title: Container(
-            height: height * 24,
-            width: width * 77,
+            height: height * space_5,
+            width: width * space_5,
             child: FittedBox(
-                fit: BoxFit.cover,
-                child: Text('Liveasy',
-                    style: TextStyle(
-                        color: white, fontSize: 20, fontWeight: boldWeight)))),
-        actions: [
-          IconButton(
-              onPressed: () {}, // TODO: Search Logic pending
-              icon: Icon(Icons.search),
-              iconSize: 17),
-          SizedBox(width: width * 19),
-          Center(child: Text("admin")),
-          SizedBox(width: width * 10),
-          Center(
-              child: IconButton(
-                  onPressed: () {}, //TODO: Admin Account settings
-                  icon: Icon(Icons.person),
-                  iconSize: 25)),
-          SignOutButtonWidget(),
-          SizedBox(width: width * 50)
-        ]),
+              fit: BoxFit.cover,
+              child: Image.asset('icons/liveasy_logo_white.png',
+                  width: width * space_5, height: height * space_5 - 0.77),
+            ),
+          ),
+        ],
+      ),
+      titleSpacing: width * space_2,
+      title: Container(
+          height: height * (space_5 - 1),
+          width: width * (space_15 + 2),
+          child: FittedBox(
+              fit: BoxFit.cover,
+              child: Text('Liveasy',
+                  style: TextStyle(
+                      color: white,
+                      fontSize: size_10,
+                      fontWeight: boldWeight)))),
+      actions: <Widget>[
+        Obx(
+          () {
+            return searchButtonController.isSearching.value
+                ? Container(
+                    padding: EdgeInsets.only(bottom: (space_1 - 2)),
+                    width: space_40,
+                    child: TextField(
+                      onTap: () {},
+                      onSubmitted: (String value) async {
+                        try{
+                          var shipperDetails =
+                          await runGetShipperPhoneNoApi(value);
+                          var transporterDetails =
+                          await runGetTransporterPhoneNoApi(value);
+                          if (shipperDetails != null &&
+                              transporterDetails != null) {
+                            Get.defaultDialog(
+                              title: "Search Result",
+                              content: Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      "Shipper Details",
+                                      style: TextStyle(fontSize: size_10),
+                                    ),
+                                    SizedBox(height: space_5),
+                                    TextButton(
+                                      onPressed: () {
+                                        Get.put(ShipperController());
+                                        Get.to(UpdateShipperScreen(
+                                            shipperDetails: shipperDetails));
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text(
+                                            shipperDetails.shipperName.toString(),
+                                          ),
+                                          SizedBox(
+                                            width: space_2,
+                                          ),
+                                          Text(
+                                            shipperDetails.companyName.toString(),
+                                          ),
+                                          SizedBox(
+                                            width: space_2,
+                                          ),
+                                          Text(
+                                            shipperDetails.phoneNo.toString(),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: space_5),
+                                    Text(
+                                      "Transporter Details",
+                                      style: TextStyle(fontSize: size_10),
+                                    ),
+                                    SizedBox(height: space_5),
+                                    TextButton(
+                                      onPressed: () {
+                                        Get.put(TransporterController());
+                                        Get.to(UpdateTransporterScreen(
+                                            transporterDetails:
+                                            transporterDetails));
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text(
+                                            transporterDetails.transporterName
+                                                .toString(),
+                                          ),
+                                          SizedBox(
+                                            width: space_2,
+                                          ),
+                                          Text(
+                                            transporterDetails.companyName
+                                                .toString(),
+                                          ),
+                                          SizedBox(
+                                            width: space_2,
+                                          ),
+                                          Text(
+                                            transporterDetails.phoneNo.toString(),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          } else if (transporterDetails != null) {
+                            Get.defaultDialog(
+                              title: "Search Result",
+                              content: Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    SizedBox(height: space_5),
+                                    Text(
+                                      "User not exist as Shipper",
+                                      style: TextStyle(color: forgotColor),
+                                    ),
+                                    SizedBox(height: space_5),
+                                    Text(
+                                      "Transporter Details",
+                                      style: TextStyle(fontSize: size_10),
+                                    ),
+                                    SizedBox(height: space_5),
+                                    TextButton(
+                                      onPressed: () {
+                                        Get.put(TransporterController());
+                                        Get.to(UpdateTransporterScreen(
+                                            transporterDetails:
+                                            transporterDetails));
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text(
+                                            transporterDetails.transporterName
+                                                .toString(),
+                                          ),
+                                          SizedBox(
+                                            width: space_2,
+                                          ),
+                                          Text(
+                                            transporterDetails.companyName
+                                                .toString(),
+                                          ),
+                                          SizedBox(
+                                            width: space_2,
+                                          ),
+                                          Text(
+                                            transporterDetails.phoneNo.toString(),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          } else if (shipperDetails != null) {
+                            Get.defaultDialog(
+                              title: "Search Result",
+                              content: Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    SizedBox(height: space_5),
+                                    Text(
+                                      "User not exist as Transporter",
+                                      style: TextStyle(color: forgotColor),
+                                    ),
+                                    SizedBox(height: space_5),
+                                    Text(
+                                      "Shipper Details",
+                                      style: TextStyle(fontSize: size_10),
+                                    ),
+                                    SizedBox(height: space_5),
+                                    TextButton(
+                                      onPressed: () {
+                                        Get.put(ShipperController());
+                                        Get.to(UpdateShipperScreen(
+                                            shipperDetails: shipperDetails));
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text(
+                                            shipperDetails.shipperName.toString(),
+                                          ),
+                                          SizedBox(
+                                            width: space_2,
+                                          ),
+                                          Text(
+                                            shipperDetails.companyName.toString(),
+                                          ),
+                                          SizedBox(
+                                            width: space_2,
+                                          ),
+                                          Text(
+                                            shipperDetails.phoneNo.toString(),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          } else {
+                            Get.defaultDialog(
+                              title: "Search Result",
+                              content: Column(
+                                children: <Widget>[
+                                  Container(
+                                    height: space_20,
+                                    width: space_20,
+                                    child: Image(image: AssetImage("assets/icons/errorIcon.png"),),
+                                  ),
+                                  SizedBox(height: space_2),
+                                  Text(
+                                    "User not exist as",
+                                    style: TextStyle(color: forgotColor),
+                                  ),
+                                  SizedBox(
+                                    height: space_2,
+                                  ),
+                                  Text(
+                                    "Shipper or Transporter",
+                                    style: TextStyle(color: forgotColor),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                        }catch(e){
+                          String errorMessage = e.toString();
+                          Get.defaultDialog(
+                            title: "Search Result",
+                            middleText: errorMessage,
+                          );
+                        }
+                      },
+                      maxLength: 10,
+                      keyboardType: TextInputType.number,
+                      enableSuggestions: true,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      controller: filterPhoneNumber,
+                      style: TextStyle(
+                        color: white,
+                      ),
+                      decoration: InputDecoration(
+                        counterText: "",
+                        border: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        prefixIcon: Icon(Icons.search),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            searchButtonController.isSearching.value = false;
+                          },
+                          icon: Icon(Icons.close_outlined),
+                          iconSize: size_10 + 1,
+                        ),
+                        hintText: "Search Phone No...",
+                        hintStyle: TextStyle(
+                            color: hintColor, fontSize: size_8 - 0.31),
+                      ),
+                    ),
+                  )
+                : IconButton(
+                    onPressed: () {
+                      searchButtonController.isSearching.value = true;
+                    },
+                    icon: searchButtonController.isSearching.value
+                        ? Icon(Icons.close_outlined)
+                        : Icon(Icons.search),
+                    iconSize: size_8 + 1);
+          },
+        ),
+        SizedBox(width: width * (space_4 - 1)),
+        Center(child: Text("admin")),
+        SizedBox(width: width * space_2),
+        Center(
+            child: IconButton(
+                onPressed: () {}, //TODO: Admin Account settings
+                icon: Icon(Icons.person),
+                iconSize: space_5)),
+        SignOutButtonWidget(),
+        SizedBox(width: width * space_10)
+      ],
+    ),
   );
 }

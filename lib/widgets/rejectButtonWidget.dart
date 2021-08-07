@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:liveasy_admin/constants/fontWeight.dart';
+import 'package:liveasy_admin/constants/radius.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
 import 'package:liveasy_admin/constants/color.dart';
 import 'package:liveasy_admin/constants/space.dart';
@@ -27,7 +28,7 @@ class RejectButtonWidget extends StatelessWidget {
               fixedSize: Size(width * 78, height * 26),
               shape: RoundedRectangleBorder(
                   side: BorderSide(color: black),
-                  borderRadius: BorderRadius.circular(radius_25))),
+                  borderRadius: BorderRadius.circular(radius_3+1))),
           onPressed: () {
             if (type == "Shipper") {
               controller = Get.find<ShipperController>();

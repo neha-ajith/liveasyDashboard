@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:liveasy_admin/constants/color.dart';
 import 'package:liveasy_admin/constants/fontWeight.dart';
+import 'package:liveasy_admin/constants/radius.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
 import 'package:liveasy_admin/constants/space.dart';
 import 'package:liveasy_admin/widgets/approveButtonWidget.dart';
@@ -32,7 +33,7 @@ class DocumentImageLayout extends StatelessWidget {
               left: width * 30, top: height * 20, right: width * 30),
           decoration: BoxDecoration(
               color: white,
-              borderRadius: BorderRadius.circular(radius_10),
+              borderRadius: BorderRadius.circular(radius_2-2),
               border: Border.all(color: greyColor.withOpacity(0.80))),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

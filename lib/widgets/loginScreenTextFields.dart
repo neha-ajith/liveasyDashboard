@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:liveasy_admin/constants/color.dart';
 import 'package:liveasy_admin/constants/fontWeight.dart';
+import 'package:liveasy_admin/constants/radius.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
 import 'package:liveasy_admin/constants/space.dart';
 
@@ -35,7 +36,7 @@ class _BuildTextFieldState extends State<BuildTextField> {
           decoration: BoxDecoration(
               color: white,
               border: Border.all(color: greyColor.withOpacity(0.30)),
-              borderRadius: BorderRadius.circular(radius_25)),
+              borderRadius: BorderRadius.circular(radius_3+1)),
           child: Row(children: [
             FittedBox(
                 fit: BoxFit.cover,

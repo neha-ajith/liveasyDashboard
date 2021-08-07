@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:liveasy_admin/constants/space.dart';
 import 'package:liveasy_admin/models/shipperApiModel.dart';
 import 'package:liveasy_admin/screens/updateShipperScreen.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
@@ -31,8 +32,8 @@ class ShipperDataSource extends DataTableSource {
       DataCell(Row(children: [
         IconButton(
             icon: Container(
-                height: height * 19,
-                width: width * 19,
+                height: height * (space_4-1),
+                width: width * (space_4-1),
                 child: FittedBox(
                     fit: BoxFit.cover, child: Image.asset('icons/edit.png'))),
             onPressed: () {
@@ -40,7 +41,7 @@ class ShipperDataSource extends DataTableSource {
                   builder: (context) =>
                       UpdateShipperScreen(shipperDetails: _userdata)));
             }),
-        SizedBox(width: width * 12),
+        SizedBox(width: width * (space_2 + 2)),
         IconButton(
             icon: Icon(Icons.delete_outlined),
             onPressed: () async {

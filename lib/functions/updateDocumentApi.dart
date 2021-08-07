@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'accessingurl.dart' as ac;
+import 'package:liveasy_admin/functions/accessingurl.dart' as ac;
 
 Future runPutDocumentApi(
     {required Map toBeUpdated, required String userId}) async {
-  //String apiUrl = '${dotenv.env['documentApiUrl'].toString()}';
   List<String> li = await Future.wait<String>([
     ac.getdocumenturl(),
   ]);

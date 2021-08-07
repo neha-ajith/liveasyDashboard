@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:liveasy_admin/constants/fontWeight.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
+import 'package:liveasy_admin/constants/space.dart';
 
 // ignore: must_be_immutable
 class TableStructure extends StatefulWidget {
@@ -26,7 +27,7 @@ class _TableStructureState extends State<TableStructure> {
     var isRowCountLessDefault = tableItemsCount < defaultRowsPerPage;
     _rowsPerPage = isRowCountLessDefault ? tableItemsCount : defaultRowsPerPage;
     return PaginatedDataTable(
-        dataRowHeight: height * 80,
+        dataRowHeight: height * space_16,
         availableRowsPerPage: [8, 15, 25],
         source: widget.dts,
         rowsPerPage: isRowCountLessDefault ? _rowsPerPage : _rowsPerPage1,
