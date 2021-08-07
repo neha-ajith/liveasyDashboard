@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'accessingurl.dart' as ac;
+import 'package:liveasy_admin/functions/accessingurl.dart' as ac;
 
 Future runPutUserApi(
     {required String type,
@@ -10,13 +9,13 @@ Future runPutUserApi(
       required String userId}) async {
   String apiUrl;
   if (type == "Shipper") {
-    //apiUrl = '${dotenv.env['shipperApiUrl'].toString()}';
+
     List<String> li = await Future.wait<String>([
       ac.getshipperurl(),
     ]);
     apiUrl = li[0];
   } else {
-    //apiUrl = '${dotenv.env['transporterApiUrl'].toString()}';
+
     List<String> li = await Future.wait<String>([
       ac.gettransporterurl(),
     ]);

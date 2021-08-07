@@ -7,13 +7,11 @@ import 'accessingurl.dart' as ac;
 Future<void> runDeleteUserApi(String type, String userId) async {
   String apiUrl;
   if (type == "Shipper") {
-    //apiUrl = '${dotenv.env['shipperApiUrl'].toString()}';
     List<String> li = await Future.wait<String>([
       ac.getshipperurl(),
     ]);
     apiUrl = li[0];
   } else {
-    //apiUrl = '${dotenv.env['transporterApiUrl'].toString()}';
     List<String> li = await Future.wait<String>([
       ac.gettransporterurl(),
     ]);

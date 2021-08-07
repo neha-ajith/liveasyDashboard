@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:liveasy_admin/models/transporterApiModel.dart';
-import 'accessingurl.dart' as ac;
+import 'package:liveasy_admin/functions/accessingurl.dart' as ac;
 
 Future<List<TransporterDetailsModel>> runGetTransporterApi(
     String choosenValue) async {
-
-  //final String transporterApiUrl = '${dotenv.env['transporterApiUrl'].toString()}';
   List<String> li = await Future.wait<String>([
     ac.gettransporterurl(),
   ]);
@@ -34,18 +31,18 @@ Future<List<TransporterDetailsModel>> runGetTransporterApi(
 
       for (var json in jsonData) {
         TransporterDetailsModel transporterDetailsModel =
-        TransporterDetailsModel();
+            TransporterDetailsModel();
         transporterDetailsModel.transporterId = json["transporterId"];
         transporterDetailsModel.phoneNo = json["phoneNo"];
         transporterDetailsModel.transporterName = json["transporterName"];
         transporterDetailsModel.companyName = json["companyName"];
         transporterDetailsModel.transporterLocation =
-        json["transporterLocation"];
+            json["transporterLocation"];
         transporterDetailsModel.transporterApproved =
-        json["transporterApproved"];
+            json["transporterApproved"];
         transporterDetailsModel.companyApproved = json["companyApproved"];
         transporterDetailsModel.accountVerificationInProgress =
-        json["accountVerificationInProgress"];
+            json["accountVerificationInProgress"];
         card1.add(transporterDetailsModel);
       }
     }
@@ -67,35 +64,35 @@ Future<List<TransporterDetailsModel>> runGetTransporterApi(
         if ((choosenValue == "All" || choosenValue == "Pending") &&
             json['accountVerificationInProgress']) {
           TransporterDetailsModel transporterDetailsModel =
-          TransporterDetailsModel();
+              TransporterDetailsModel();
           transporterDetailsModel.transporterId = json["transporterId"];
           transporterDetailsModel.phoneNo = json["phoneNo"];
           transporterDetailsModel.transporterName = json["transporterName"];
           transporterDetailsModel.companyName = json["companyName"];
           transporterDetailsModel.transporterLocation =
-          json["transporterLocation"];
+              json["transporterLocation"];
           transporterDetailsModel.transporterApproved =
-          json["transporterApproved"];
+              json["transporterApproved"];
           transporterDetailsModel.companyApproved = json["companyApproved"];
           transporterDetailsModel.accountVerificationInProgress =
-          json["accountVerificationInProgress"];
+              json["accountVerificationInProgress"];
           card2.add(transporterDetailsModel);
         }
         if ((choosenValue == "All" || choosenValue == "New/Rejected") &&
             json['accountVerificationInProgress'] == false) {
           TransporterDetailsModel transporterDetailsModel =
-          TransporterDetailsModel();
+              TransporterDetailsModel();
           transporterDetailsModel.transporterId = json["transporterId"];
           transporterDetailsModel.phoneNo = json["phoneNo"];
           transporterDetailsModel.transporterName = json["transporterName"];
           transporterDetailsModel.companyName = json["companyName"];
           transporterDetailsModel.transporterLocation =
-          json["transporterLocation"];
+              json["transporterLocation"];
           transporterDetailsModel.transporterApproved =
-          json["transporterApproved"];
+              json["transporterApproved"];
           transporterDetailsModel.companyApproved = json["companyApproved"];
           transporterDetailsModel.accountVerificationInProgress =
-          json["accountVerificationInProgress"];
+              json["accountVerificationInProgress"];
           card3.add(transporterDetailsModel);
         }
       }

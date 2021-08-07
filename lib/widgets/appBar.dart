@@ -1,16 +1,13 @@
-import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:liveasy_admin/constants/color.dart';
 import 'package:liveasy_admin/constants/fontSize.dart';
 import 'package:liveasy_admin/constants/fontWeight.dart';
-import 'package:liveasy_admin/constants/radius.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
 import 'package:liveasy_admin/constants/space.dart';
 import 'package:liveasy_admin/controller/ShipperController.dart';
 import 'package:liveasy_admin/controller/TransporterController.dart';
 import 'package:liveasy_admin/controller/searchButtonController.dart';
-import 'package:liveasy_admin/models/shipperApiModel.dart';
 import 'package:liveasy_admin/screens/updateShipperScreen.dart';
 import 'package:liveasy_admin/screens/updateTransporterScreen.dart';
 import 'package:liveasy_admin/services/getshipper_transporterApi.dart';
@@ -22,15 +19,15 @@ PreferredSize appBar() {
       Get.put(SearchButtonController());
   double height = SizeConfig.safeBlockVertical!;
   double width = SizeConfig.safeBlockHorizontal!;
-  final TextEditingController filterPhoneNumber = TextEditingController();
+  final filterPhoneNumber = TextEditingController();
 
   return PreferredSize(
-    preferredSize: Size(width * space_4 * space_14 + 2, height * space_9),
+    preferredSize: Size(width * space_4 * (space_14 + 2), height * space_9),
     child: AppBar(
       backgroundColor: signInColor,
       leading: Row(
         children: [
-          SizedBox(width: width * space_4 + 3),
+          SizedBox(width: width * (space_4 + 3)),
           Container(
             height: height * space_5,
             width: width * space_5,
@@ -44,8 +41,8 @@ PreferredSize appBar() {
       ),
       titleSpacing: width * space_2,
       title: Container(
-          height: height * space_5 - 1,
-          width: width * space_15 + 2,
+          height: height * (space_5 - 1),
+          width: width * (space_15 + 2),
           child: FittedBox(
               fit: BoxFit.cover,
               child: Text('Liveasy',
@@ -58,120 +55,72 @@ PreferredSize appBar() {
           () {
             return searchButtonController.isSearching.value
                 ? Container(
-                    padding: EdgeInsets.only(bottom: space_1 - 2),
+                    padding: EdgeInsets.only(bottom: (space_1 - 2)),
                     width: space_40,
                     child: TextField(
                       onTap: () {},
                       onSubmitted: (String value) async {
-                        var shipperDetails =
-                            await runGetShipperPhoneNoApi(value);
-                        var transporterDetails =
-                            await runGetTransporterPhoneNoApi(value);
-                        if (shipperDetails != null &&
-                            transporterDetails != null) {
-                          Get.defaultDialog(
-                            title: "Search Result",
-                            content: Container(
-                              child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    "Shipper Details",
-                                    style: TextStyle(fontSize: size_10),
-                                  ),
-                                  SizedBox(height: space_5),
-                                  TextButton(
-                                    onPressed: () {
-                                      Get.put(ShipperController());
-                                      Get.to(UpdateShipperScreen(
-                                          shipperDetails: shipperDetails));
-                                    },
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          shipperDetails.shipperName.toString(),
-                                        ),
-                                        SizedBox(
-                                          width: space_2,
-                                        ),
-                                        Text(
-                                          shipperDetails.companyName.toString(),
-                                        ),
-                                        SizedBox(
-                                          width: space_2,
-                                        ),
-                                        Text(
-                                          shipperDetails.phoneNo.toString(),
-                                        ),
-                                      ],
+                        try{
+                          var shipperDetails =
+                          await runGetShipperPhoneNoApi(value);
+                          var transporterDetails =
+                          await runGetTransporterPhoneNoApi(value);
+                          if (shipperDetails != null &&
+                              transporterDetails != null) {
+                            Get.defaultDialog(
+                              title: "Search Result",
+                              content: Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      "Shipper Details",
+                                      style: TextStyle(fontSize: size_10),
                                     ),
-                                  ),
-                                  SizedBox(height: space_5),
-                                  Text(
-                                    "Transporter Details",
-                                    style: TextStyle(fontSize: size_10),
-                                  ),
-                                  SizedBox(height: space_5),
-                                  TextButton(
-                                    onPressed: () {
-                                      Get.put(TransporterController());
-                                      Get.to(UpdateTransporterScreen(
-                                          transporterDetails:
-                                              transporterDetails));
-                                    },
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          transporterDetails.transporterName
-                                              .toString(),
-                                        ),
-                                        SizedBox(
-                                          width: space_2,
-                                        ),
-                                        Text(
-                                          transporterDetails.companyName
-                                              .toString(),
-                                        ),
-                                        SizedBox(
-                                          width: space_2,
-                                        ),
-                                        Text(
-                                          transporterDetails.phoneNo.toString(),
-                                        ),
-                                      ],
+                                    SizedBox(height: space_5),
+                                    TextButton(
+                                      onPressed: () {
+                                        Get.put(ShipperController());
+                                        Get.to(UpdateShipperScreen(
+                                            shipperDetails: shipperDetails));
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text(
+                                            shipperDetails.shipperName.toString(),
+                                          ),
+                                          SizedBox(
+                                            width: space_2,
+                                          ),
+                                          Text(
+                                            shipperDetails.companyName.toString(),
+                                          ),
+                                          SizedBox(
+                                            width: space_2,
+                                          ),
+                                          Text(
+                                            shipperDetails.phoneNo.toString(),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        } else if (transporterDetails != null) {
-                          Get.defaultDialog(
-                            title: "Search Result",
-                            content: Container(
-                              child: Column(
-                                children: <Widget>[
-                                  SizedBox(height: space_5),
-                                  Text(
-                                    "User not exist as Shipper",
-                                    style: TextStyle(color: forgotColor),
-                                  ),
-                                  SizedBox(height: space_5),
-                                  Text(
-                                    "Transporter Details",
-                                    style: TextStyle(fontSize: size_10),
-                                  ),
-                                  SizedBox(height: space_5),
-                                  TextButton(
-                                    onPressed: () {
-                                      Get.put(TransporterController());
-                                      Get.to(UpdateTransporterScreen(
-                                          transporterDetails:
-                                              transporterDetails));
-                                    },
-                                    child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                    SizedBox(height: space_5),
+                                    Text(
+                                      "Transporter Details",
+                                      style: TextStyle(fontSize: size_10),
+                                    ),
+                                    SizedBox(height: space_5),
+                                    TextButton(
+                                      onPressed: () {
+                                        Get.put(TransporterController());
+                                        Get.to(UpdateTransporterScreen(
+                                            transporterDetails:
+                                            transporterDetails));
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
                                         children: <Widget>[
                                           Text(
                                             transporterDetails.transporterName
@@ -188,70 +137,147 @@ PreferredSize appBar() {
                                             width: space_2,
                                           ),
                                           Text(
-                                            transporterDetails.phoneNo
-                                                .toString(),
+                                            transporterDetails.phoneNo.toString(),
                                           ),
                                         ],
                                       ),
-
-                                  ),
-                                ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        } else if (shipperDetails != null) {
-                          Get.defaultDialog(
-                            title: "Search Result",
-                            content: Container(
-                              child: Column(
+                            );
+                          } else if (transporterDetails != null) {
+                            Get.defaultDialog(
+                              title: "Search Result",
+                              content: Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    SizedBox(height: space_5),
+                                    Text(
+                                      "User not exist as Shipper",
+                                      style: TextStyle(color: forgotColor),
+                                    ),
+                                    SizedBox(height: space_5),
+                                    Text(
+                                      "Transporter Details",
+                                      style: TextStyle(fontSize: size_10),
+                                    ),
+                                    SizedBox(height: space_5),
+                                    TextButton(
+                                      onPressed: () {
+                                        Get.put(TransporterController());
+                                        Get.to(UpdateTransporterScreen(
+                                            transporterDetails:
+                                            transporterDetails));
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text(
+                                            transporterDetails.transporterName
+                                                .toString(),
+                                          ),
+                                          SizedBox(
+                                            width: space_2,
+                                          ),
+                                          Text(
+                                            transporterDetails.companyName
+                                                .toString(),
+                                          ),
+                                          SizedBox(
+                                            width: space_2,
+                                          ),
+                                          Text(
+                                            transporterDetails.phoneNo.toString(),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          } else if (shipperDetails != null) {
+                            Get.defaultDialog(
+                              title: "Search Result",
+                              content: Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    SizedBox(height: space_5),
+                                    Text(
+                                      "User not exist as Transporter",
+                                      style: TextStyle(color: forgotColor),
+                                    ),
+                                    SizedBox(height: space_5),
+                                    Text(
+                                      "Shipper Details",
+                                      style: TextStyle(fontSize: size_10),
+                                    ),
+                                    SizedBox(height: space_5),
+                                    TextButton(
+                                      onPressed: () {
+                                        Get.put(ShipperController());
+                                        Get.to(UpdateShipperScreen(
+                                            shipperDetails: shipperDetails));
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text(
+                                            shipperDetails.shipperName.toString(),
+                                          ),
+                                          SizedBox(
+                                            width: space_2,
+                                          ),
+                                          Text(
+                                            shipperDetails.companyName.toString(),
+                                          ),
+                                          SizedBox(
+                                            width: space_2,
+                                          ),
+                                          Text(
+                                            shipperDetails.phoneNo.toString(),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          } else {
+                            Get.defaultDialog(
+                              title: "Search Result",
+                              content: Column(
                                 children: <Widget>[
-                                  SizedBox(height: space_5),
+                                  Container(
+                                    height: space_20,
+                                    width: space_20,
+                                    child: Image(image: AssetImage("assets/icons/errorIcon.png"),),
+                                  ),
+                                  SizedBox(height: space_2),
                                   Text(
-                                    "User not exist as Transporter",
+                                    "User not exist as",
                                     style: TextStyle(color: forgotColor),
                                   ),
-                                  SizedBox(height: space_5),
-                                  Text(
-                                    "Shipper Details",
-                                    style: TextStyle(fontSize: size_10),
+                                  SizedBox(
+                                    height: space_2,
                                   ),
-                                  SizedBox(height: space_5),
-                                  TextButton(
-                                    onPressed: () {
-                                      Get.put(ShipperController());
-                                      Get.to(UpdateShipperScreen(
-                                          shipperDetails: shipperDetails));
-                                    },
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          shipperDetails.shipperName.toString(),
-                                        ),
-                                        SizedBox(
-                                          width: space_2,
-                                        ),
-                                        Text(
-                                          shipperDetails.companyName.toString(),
-                                        ),
-                                        SizedBox(
-                                          width: space_2,
-                                        ),
-                                        Text(
-                                          shipperDetails.phoneNo.toString(),
-                                        ),
-                                      ],
-                                    ),
+                                  Text(
+                                    "Shipper or Transporter",
+                                    style: TextStyle(color: forgotColor),
                                   ),
                                 ],
                               ),
-                            ),
-                          );
-                        } else {
+                            );
+                          }
+                        }catch(e){
+                          String errorMessage = e.toString();
                           Get.defaultDialog(
                             title: "Search Result",
-                            middleText: "User not exist as\nShipper or Transporter",
-                            middleTextStyle: TextStyle(color: forgotColor),
+                            middleText: errorMessage,
                           );
                         }
                       },
@@ -292,7 +318,7 @@ PreferredSize appBar() {
                     iconSize: size_8 + 1);
           },
         ),
-        SizedBox(width: width * space_4 - 1),
+        SizedBox(width: width * (space_4 - 1)),
         Center(child: Text("admin")),
         SizedBox(width: width * space_2),
         Center(

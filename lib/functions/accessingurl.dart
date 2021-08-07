@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-Future<String> getshipperurl() async
-{
-  String shipper="";
+Future<String> getshipperurl() async {
+  String shipper = "";
   var result = await FirebaseFirestore.instance.collection('urls').get();
   result.docs.forEach((res) {
     shipper = res.data()['shipperApiUrl'];
@@ -10,9 +9,8 @@ Future<String> getshipperurl() async
   return shipper;
 }
 
-Future<String> gettransporterurl() async
-{
-  String transporter="";
+Future<String> gettransporterurl() async {
+  String transporter = "";
   var result = await FirebaseFirestore.instance.collection('urls').get();
   result.docs.forEach((res) {
     transporter = res.data()['transporterApiUrl'];
@@ -20,9 +18,8 @@ Future<String> gettransporterurl() async
   return transporter;
 }
 
-Future<String> getdocumenturl() async
-{
-  String document="";
+Future<String> getdocumenturl() async {
+  String document = "";
   var result = await FirebaseFirestore.instance.collection('urls').get();
   result.docs.forEach((res) {
     document = res.data()['documentApiUrl'];
@@ -33,4 +30,3 @@ Future<String> getdocumenturl() async
 //firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance.ref('.env');
 //Uint8List? downloadedData  =  await ref.getData();
 //print(utf8.decode(downloadedData!));*/
-
