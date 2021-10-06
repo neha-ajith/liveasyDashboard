@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:liveasy_admin/constants/color.dart';
 import 'package:liveasy_admin/constants/fontWeight.dart';
+import 'package:liveasy_admin/constants/radius.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
 import 'package:liveasy_admin/constants/space.dart';
 
@@ -19,7 +20,7 @@ class SaveButtonWidget extends StatelessWidget {
           fixedSize: Size(width * 165, height * 32),
           shape: RoundedRectangleBorder(
               side: BorderSide(color: black),
-              borderRadius: BorderRadius.circular(radius_25)),
+              borderRadius: BorderRadius.circular(radius_3+1)),
         ),
         onPressed: () async {
           await onPressed();

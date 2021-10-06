@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:liveasy_admin/constants/color.dart';
 import 'package:liveasy_admin/constants/fontWeight.dart';
+import 'package:liveasy_admin/constants/radius.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
 import 'package:liveasy_admin/constants/space.dart';
 
@@ -43,7 +44,7 @@ class _DashboardState extends State<Dashboard> {
           Row(mainAxisAlignment: MainAxisAlignment.start, children: [
             Card(
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(radius_25)),
+                    borderRadius: BorderRadius.circular(radius_3+1)),
                 shadowColor: black,
                 elevation: 2.0,
                 child: Container(
@@ -79,7 +80,7 @@ class _DashboardState extends State<Dashboard> {
                 shadowColor: black,
                 elevation: 2.0,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(radius_25)),
+                    borderRadius: BorderRadius.circular(radius_3+1)),
                 child: Container(
                     height: height * 108,
                     width: width * 265,
@@ -113,7 +114,7 @@ class _DashboardState extends State<Dashboard> {
                 shadowColor: black,
                 elevation: 2.0,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(radius_25)),
+                    borderRadius: BorderRadius.circular(radius_3+1)),
                 child: Container(
                     height: height * 108,
                     width: width * 266,
@@ -147,7 +148,7 @@ class _DashboardState extends State<Dashboard> {
                 shadowColor: black,
                 elevation: 2.0,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(radius_25)),
+                    borderRadius: BorderRadius.circular(radius_3+1)),
                 child: Container(
                     height: height * 108,
                     width: width * 265,

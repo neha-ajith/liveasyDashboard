@@ -3,24 +3,12 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:liveasy_admin/functions/accessingurl.dart' as ac;
 
-Future runPutUserApi(
-    {required String type,
-      required Map toBeUpdated,
-      required String userId}) async {
-  String apiUrl;
-  if (type == "Shipper") {
-
-    List<String> li = await Future.wait<String>([
-      ac.getshipperurl(),
-    ]);
-    apiUrl = li[0];
-  } else {
-
-    List<String> li = await Future.wait<String>([
-      ac.gettransporterurl(),
-    ]);
-    apiUrl = li[0];
-  }
+Future runPutDocumentApi(
+    {required Map toBeUpdated, required String userId}) async {
+  List<String> li = await Future.wait<String>([
+    ac.getdocumenturl(),
+  ]);
+  final String apiUrl = li[0];
   final String additionalQuery = '/';
   String body = json.encode(toBeUpdated);
   final http.Response response = await http.put(

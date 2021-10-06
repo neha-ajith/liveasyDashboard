@@ -9,7 +9,7 @@ import 'package:liveasy_admin/screens/homeScreen.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await dotenv.load(fileName: ".env");
+  //await dotenv.load(fileName: ".env");
   runApp(LiveasyAdmin());
 }
 

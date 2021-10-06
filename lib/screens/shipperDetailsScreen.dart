@@ -5,7 +5,7 @@ import 'package:liveasy_admin/functions/getShipperApi.dart';
 import 'package:liveasy_admin/services/shipperDataSource.dart';
 import 'package:liveasy_admin/widgets/filterButtonWidget.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
-import 'package:liveasy_admin/widgets/showDialog.dart';
+import 'package:liveasy_admin/services/showDialog.dart';
 import 'package:liveasy_admin/widgets/tableStructure.dart';
 
 class ShipperDetailsScreen extends StatefulWidget {
@@ -42,8 +42,8 @@ class _ShipperDetailsScreenState extends State<ShipperDetailsScreen> {
               Container(
                   width: width * 1137,
                   child: Obx(() {
-                    shipperController.onShipperDeleted.value;
-                    shipperController.onShipperAPIfails.value;
+                    shipperController.shipperDeleted.value;
+                    shipperController.shipperAPIfailed.value;
                     return FutureBuilder(
                         future: runGetShipperApi(
                             shipperController.choosenShipperFilter.value),

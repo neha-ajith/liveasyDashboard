@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:liveasy_admin/constants/color.dart';
 import 'package:liveasy_admin/constants/fontWeight.dart';
+import 'package:liveasy_admin/constants/radius.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
 import 'package:liveasy_admin/constants/space.dart';
 
@@ -17,7 +18,7 @@ class CancelButtonWidget extends StatelessWidget {
             backgroundColor: white,
             shape: RoundedRectangleBorder(
                 side: BorderSide(color: black),
-                borderRadius: BorderRadius.circular(radius_25))),
+                borderRadius: BorderRadius.circular(radius_3+1))),
         onPressed: () {
           Navigator.of(context).pop();
         },
