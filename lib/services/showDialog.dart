@@ -8,6 +8,6 @@ Future dialogBox(BuildContext context, String title, String description,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return DialogBox(
-            title: title, description: description, userId: userId);
+            title: title, description: description, userId: userId, type: type);
       });
 }

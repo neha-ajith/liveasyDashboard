@@ -22,6 +22,7 @@ class HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   TabController? tabController;
   int active = 0;
+  //final _myAppBar = MyAppBar();
 
   @override
   void initState() {
@@ -73,8 +74,8 @@ class HomeScreenState extends State<HomeScreen>
                         ShipperDetailsScreen(),
                         ShipperActivitiesScreen(), //TODO: These Screens are empty
                         TransporterDetailsScreen(),
-                        TransporterActivitiesScreen(),
-                        GPSDetailsScreen()
+                        TransporterActivitiesScreen(), //TODO: These Screens are empty
+                        GPSDetailsScreen() //TODO: These Screens are empty
                       ]))
             ])));
   }

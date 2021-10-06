@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:liveasy_admin/constants/fontWeight.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
+import 'package:liveasy_admin/constants/space.dart';
 
 // ignore: must_be_immutable
 class TableStructure extends StatefulWidget {
+  String type;
   var dts;
-  TableStructure({required String type, required this.dts});
+  TableStructure({required this.type, required this.dts});
 
   @override
   _TableStructureState createState() => _TableStructureState();
@@ -20,11 +22,12 @@ class _TableStructureState extends State<TableStructure> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.type);
     var tableItemsCount = widget.dts.rowCount;
     var isRowCountLessDefault = tableItemsCount < defaultRowsPerPage;
     _rowsPerPage = isRowCountLessDefault ? tableItemsCount : defaultRowsPerPage;
     return PaginatedDataTable(
-        dataRowHeight: height * 80,
+        dataRowHeight: height * space_16,
         availableRowsPerPage: [8, 15, 25],
         source: widget.dts,
         rowsPerPage: isRowCountLessDefault ? _rowsPerPage : _rowsPerPage1,
@@ -40,10 +43,19 @@ class _TableStructureState extends State<TableStructure> {
           DataColumn(
               label: Text('Company name',
                   style: TextStyle(fontWeight: boldWeight))),
+          if (widget.type == "Shipper")
+            DataColumn(
+                label: Text('Status', style: TextStyle(fontWeight: boldWeight)))
+          else
+            DataColumn(
+                label: Text('Transporter Status',
+                    style: TextStyle(fontWeight: boldWeight))),
+          if (widget.type == "Transporter")
+            DataColumn(
+                label: Text('Company Status',
+                    style: TextStyle(fontWeight: boldWeight))),
           DataColumn(
-              label: Text('Status', style: TextStyle(fontWeight: boldWeight))),
-          DataColumn(
-              label: Text('Actions', style: TextStyle(fontWeight: boldWeight))),
+              label: Text('Actions', style: TextStyle(fontWeight: boldWeight)))
         ],
         onRowsPerPageChanged: isRowCountLessDefault
             ? null

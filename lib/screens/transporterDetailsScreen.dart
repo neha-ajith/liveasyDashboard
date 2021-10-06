@@ -5,12 +5,10 @@ import 'package:liveasy_admin/functions/getTransporterApi.dart';
 import 'package:liveasy_admin/services/transporterDataSource.dart';
 import 'package:liveasy_admin/widgets/filterButtonWidget.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
-import 'package:liveasy_admin/widgets/showDialog.dart';
+import 'package:liveasy_admin/services/showDialog.dart';
 import 'package:liveasy_admin/widgets/tableStructure.dart';
 
 class TransporterDetailsScreen extends StatefulWidget {
-  const TransporterDetailsScreen({Key? key}) : super(key: key);
-
   @override
   _TransporterDetailsScreenState createState() =>
       _TransporterDetailsScreenState();
@@ -21,7 +19,6 @@ class _TransporterDetailsScreenState extends State<TransporterDetailsScreen> {
   double width = SizeConfig.safeBlockHorizontal!;
   TransporterController transporterController =
       Get.put(TransporterController());
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -46,8 +43,8 @@ class _TransporterDetailsScreenState extends State<TransporterDetailsScreen> {
               Container(
                   width: width * 1137,
                   child: Obx(() {
-                    transporterController.onTransporterDeleted.value;
-                    transporterController.onTransporterAPIfails.value;
+                    transporterController.transporterDeleted.value;
+                    transporterController.transporterAPIfailed.value;
                     return FutureBuilder(
                         future: runGetTransporterApi(transporterController
                             .choosenTransporterFilter.value),
@@ -69,7 +66,7 @@ class _TransporterDetailsScreenState extends State<TransporterDetailsScreen> {
                                 dialogBox(
                                     context,
                                     'Error Loading Transporter Details',
-                                    'Unable to Fetch Shipper Details\nPlease try again',
+                                    'Unable to Fetch Transporter Details\nPlease try again later',
                                     null,
                                     "Transporter");
                               });

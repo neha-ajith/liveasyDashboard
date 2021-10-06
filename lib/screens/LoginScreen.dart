@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:liveasy_admin/constants/radius.dart';
 import 'package:liveasy_admin/services/authentication.dart';
 import 'package:liveasy_admin/constants/borderWidth.dart';
 import 'package:liveasy_admin/constants/color.dart';
@@ -54,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontWeight: boldWeight)))),
               SizedBox(height: height * 50),
               Container(
-                  height: height * 520,
+                  height: height * 580,
                   width: width * 585,
                   padding: EdgeInsets.only(
                       top: height * 64, left: width * 67, right: width * 68),
@@ -62,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: white,
                       border: Border.all(
                           color: black.withOpacity(0.20), width: borderWidth_1),
-                      borderRadius: BorderRadius.circular(radius_30)),
+                      borderRadius: BorderRadius.circular(radius_4+2)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -78,14 +79,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                         fontWeight: normalWeight)))),
                         SizedBox(height: height * 20),
                         AutofillGroup(
-                          child: buildTextField(
-                              "Email",
-                              _emailController,
-                              textFocusNodeEmail,
-                              textFocusNodePassword,
-                              'ex: zivapaul@gmail.com',
-                              context),
-                        ),
+                            child: BuildTextField(
+                                type: "Email",
+                                controller: _emailController,
+                                focusNode: textFocusNodeEmail,
+                                nextFocusNode: textFocusNodePassword,
+                                labelText: 'ex: zivapaul@gmail.com',
+                                context: context)),
                         SizedBox(height: height * 30),
                         Container(
                             height: height * 22,
@@ -97,15 +97,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                         color: black,
                                         fontSize: 18,
                                         fontWeight: regularWeight)))),
-                        SizedBox(height: height * 20),
-                        buildTextField(
-                            "Password",
-                            _passwordController,
-                            textFocusNodePassword,
-                            buttonFocusNodesignIn,
-                            'ex: Ziva123#',
-                            context),
-                        SizedBox(height: height * 50),
+                        SizedBox(height: height * 30),
+                        AutofillGroup(
+                            child: BuildTextField(
+                                type: "Password",
+                                controller: _passwordController,
+                                focusNode: textFocusNodePassword,
+                                nextFocusNode: buttonFocusNodesignIn,
+                                labelText: 'ex: Ziva123#',
+                                context: context)),
+                        SizedBox(height: height * 40),
                         Container(
                             height: height * 71,
                             width: width * 449,
@@ -116,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     shape: RoundedRectangleBorder(
                                         side: BorderSide(color: signInColor),
                                         borderRadius:
-                                            BorderRadius.circular(radius_25))),
+                                            BorderRadius.circular(radius_3+1))),
                                 onPressed: () {
                                   Authentication.signInWithEmail(
                                       context: context,
