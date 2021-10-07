@@ -32,8 +32,7 @@ class EditShipperDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    TextEditingController name =
-    TextEditingController(text:shipperDetails.shipperName);
+    TextEditingController name = TextEditingController(text:shipperDetails.shipperName);
     shipperController.updateShipperName(
         shipperDetails.shipperName == null ? "" : shipperDetails.shipperName!);
     TextEditingController contact = TextEditingController(text: shipperDetails.phoneNo);
