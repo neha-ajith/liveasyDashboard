@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
@@ -11,10 +10,8 @@ import 'package:liveasy_admin/constants/screenSizeConfig.dart';
 import 'package:liveasy_admin/controller/TransporterController.dart';
 import 'package:liveasy_admin/functions/updateTransporterStatus.dart';
 import 'package:liveasy_admin/models/transporterApiModel.dart';
-import 'package:liveasy_admin/services/showDialog.dart';
 import 'package:liveasy_admin/widgets/cancelButtonWidget.dart';
 import 'package:liveasy_admin/widgets/completeDialog.dart';
-import 'package:liveasy_admin/widgets/dialogBox.dart';
 import 'package:liveasy_admin/widgets/radioButtonWidget.dart';
 import 'package:liveasy_admin/widgets/updateScreenCardLayout.dart';
 import 'package:liveasy_admin/widgets/updateScreenTextField.dart';
