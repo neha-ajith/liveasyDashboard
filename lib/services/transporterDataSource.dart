@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:liveasy_admin/models/transporterApiModel.dart';
+import 'package:get/get.dart';
 import 'package:liveasy_admin/screens/updateTransporterScreen.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
 import 'package:liveasy_admin/services/showDialog.dart';
@@ -42,9 +43,7 @@ class TransporterDataSource extends DataTableSource {
                 child: FittedBox(
                     fit: BoxFit.cover, child: Image.asset('icons/edit.png'))),
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) =>
-                      UpdateTransporterScreen(transporterDetails: _userdata)));
+              Get.to(UpdateTransporterScreen(transporterDetails: _userdata));
             }),
         SizedBox(width: width * 12),
         IconButton(

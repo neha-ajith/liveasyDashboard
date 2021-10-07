@@ -3,7 +3,6 @@ import 'package:liveasy_admin/constants/color.dart';
 import 'package:liveasy_admin/constants/fontWeight.dart';
 import 'package:liveasy_admin/constants/radius.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
-import 'package:liveasy_admin/constants/space.dart';
 import 'package:liveasy_admin/widgets/approveButtonWidget.dart';
 import 'package:liveasy_admin/widgets/rejectButtonWidget.dart';
 
@@ -36,40 +35,24 @@ class DocumentImageLayout extends StatelessWidget {
               borderRadius: BorderRadius.circular(radius_2-2),
               border: Border.all(color: greyColor.withOpacity(0.80))),
           child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Container(
                 height: height * 17,
                 width: width * 62,
                 child: FittedBox(
                     fit: BoxFit.cover,
                     child: Text('ID Proof',
-                        style: TextStyle(
-                            color: greyColor,
-                            fontWeight: normalWeight,
-                            fontSize: 15)))),
+                        style: TextStyle(color: greyColor, fontWeight: normalWeight, fontSize: 15)))),
             SizedBox(height: height * 20),
-            if (pan != null)
-              Container(
-                  width: width * 210,
-                  height: height * 140,
-                  child:
-                      FittedBox(fit: BoxFit.cover, child: Image.network(pan!)))
-            else
-              Container(
-                  width: width * 210,
-                  height: height * 140,
-                  child: Center(child: Text('NO Image Uploaded'))),
+            pan != null
+                ? Container(width: width * 210, height: height * 140, child: Image.network(pan!, fit: BoxFit.fill,))
+                : Container(width: width * 210, height: height * 140, child: Center(child: Text('NO Image Uploaded'))),
             if (pan != null)
               Column(children: [
                 SizedBox(height: height * 15),
-                if (!panApproved)
-                  Center(
-                      child:
-                          ApproveButtonWidget(type: 'Shipper', docType: 'PAN'))
-                else
-                  Center(
-                      child:
-                          RejectButtonWidget(type: 'Shipper', docType: 'PAN'))
+                !panApproved
+                    ? Center(child: ApproveButtonWidget(type: type, docType: 'PAN'))
+                    : Center(child: RejectButtonWidget(type: type, docType: 'PAN'))
               ])
           ])),
       SizedBox(width: width * 120),
@@ -83,7 +66,7 @@ class DocumentImageLayout extends StatelessWidget {
               borderRadius: BorderRadius.circular(radius_10),
               border: Border.all(color: greyColor.withOpacity(0.80))),
           child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Container(
                 height: height * 17,
                 width: width * 110,
@@ -100,8 +83,10 @@ class DocumentImageLayout extends StatelessWidget {
                 Container(
                     width: width * 210,
                     height: height * 140,
-                    child: FittedBox(
-                        fit: BoxFit.cover, child: Image.network(aadhar1!)))
+                    child: Image.network(
+                      aadhar1!, fit: BoxFit.cover,
+                    ))
+              //FittedBox(fit: BoxFit.cover, child: Image.network(aadhar1!)))
               else
                 Container(
                     height: height * 140,
@@ -112,8 +97,10 @@ class DocumentImageLayout extends StatelessWidget {
                 Container(
                     width: width * 210,
                     height: height * 140,
-                    child: FittedBox(
-                        fit: BoxFit.cover, child: Image.network(aadhar2!)))
+                    child: Image.network(
+                      aadhar2!, fit: BoxFit.cover,
+                    ))
+              //  FittedBox(fit: BoxFit.cover, child: Image.network(aadhar2!)))
               else
                 Container(
                     height: height * 140,
@@ -173,7 +160,10 @@ class CompanyProofLayout extends StatelessWidget {
             Container(
                 width: width * 412,
                 height: height * 545,
-                child: FittedBox(fit: BoxFit.cover, child: Image.network(gst!)))
+                child: Image.network(
+                  gst!, fit: BoxFit.cover,
+                ))
+          //FittedBox(fit: BoxFit.cover, child: Image.network(gst!)))
           else
             Container(
                 height: height * 545,
@@ -185,13 +175,13 @@ class CompanyProofLayout extends StatelessWidget {
               if (!companyProofApproved!)
                 Center(
                     child: ApproveButtonWidget(
-                  type: 'Shipper',
-                  docType: 'GST',
-                ))
+                      type: 'Shipper',
+                      docType: 'GST',
+                    ))
               else
                 Center(
                     child:
-                        RejectButtonWidget(type: 'ShipperGST', docType: 'GST'))
+                    RejectButtonWidget(type: 'ShipperGST', docType: 'GST'))
             ])
         ]));
   }

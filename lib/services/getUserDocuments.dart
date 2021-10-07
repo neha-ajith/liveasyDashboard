@@ -11,24 +11,24 @@ Future<List<dynamic>> getUserDocumentURL(userId) async {
   if (docList.isNotEmpty) {
     for (var document in docList) {
       switch (document.documentType) {
-        case "Profile":
+        case "Profile Photo":
           {
             profile = document.documentLink;
           }
           break;
-        case "Aadhar1":
+        case "Address Proof Front Photo":
           {
             aadhar1 = document.documentLink;
             addressProofFrontApproved = document.verified;
           }
           break;
-        case "Aadhar2":
+        case "Address Proof Back Photo":
           {
             aadhar2 = document.documentLink;
             addressProofBackApproved = document.verified;
           }
           break;
-        case "PAN":
+        case "ID Proof (Pan Card)Front Photo":
           {
             pan = document.documentLink;
             identityProofApproved = document.verified;
