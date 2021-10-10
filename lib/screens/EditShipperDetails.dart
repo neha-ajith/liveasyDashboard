@@ -7,6 +7,8 @@ import 'package:liveasy_admin/controller/ShipperController.dart';
 import 'package:get/get.dart';
 import 'package:liveasy_admin/models/shipperApiModel.dart';
 import 'package:liveasy_admin/widgets/cancelButtonWidget.dart';
+import 'package:liveasy_admin/widgets/circularProfileImage.dart';
+import 'package:liveasy_admin/widgets/editTitleTextTemplete.dart';
 import 'package:liveasy_admin/widgets/radioButtonWidget.dart';
 import 'package:liveasy_admin/widgets/updateScreenCardLayout.dart';
 import 'package:liveasy_admin/widgets/updateScreenTextField.dart';
@@ -50,12 +52,8 @@ class EditShipperDetails extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: height * 37),
-          Container(
-              height: height * 40,
-              width: width * 240,
-              child: FittedBox(fit: BoxFit.cover,
-                  child: Text('Shipper details', style: TextStyle(
-                          fontSize: 32, color: greyColor, fontWeight: regularWeight)))),
+          EditTitleTextTemplate(text:'Shipper details',height:  height * 40,width: width * 240,
+                fontSize: 32,fontWeight: regularWeight,color: greyColor,),
           SizedBox(height: height * 30),
           Card(
               shape: RoundedRectangleBorder(
@@ -70,49 +68,17 @@ class EditShipperDetails extends StatelessWidget {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                            height: height * 34,
-                            width: width * 230,
-                            child: FittedBox(fit: BoxFit.cover,
-                                child: Text('Edit information', style: TextStyle(
-                                        fontSize: 28, color: greyColor, fontWeight: regularWeight)))),
+                        EditTitleTextTemplate(text:'Edit information',height:height * 34,width: width * 230,
+                          fontSize: 28,fontWeight: regularWeight,color: greyColor,),
                         SizedBox(height: height * 35),
-                        if (dataList[0] == null)
-                          Center(
-                              child: Container(
-                                  height: height * 63,
-                                  width: width * 63,
-                                  child: FittedBox(fit: BoxFit.cover,
-                                      child: Image.asset("icons/profile.png"))))
-                        else
-                          Center(
-                              child: Container(
-                                  height: height * 63,
-                                  width: width * 63,
-                                  child: FittedBox(fit: BoxFit.cover,
-                                      child: CircleAvatar(child: Image.network(dataList[0]))))),
+                        Center(child: CircularProfileImage(image:null,height: height * 63,width: width * 63,),),
                         SizedBox(height: height * 70),
                         Row(children: [
-                          Container(
-                              height: height * 18,
-                              width: width * 48,
-                              child: FittedBox(fit: BoxFit.cover,
-                                  child: Text('Name', style: TextStyle(
-                                          color: greyColor, fontWeight: boldWeight, fontSize: 14)))),
+                          EditTextTemplate(text: 'Name', height: height * 18, width: width * 48,),
                           SizedBox(width: width * 342),
-                          Container(
-                              height: height * 20,
-                              width: width * 60,
-                              child: FittedBox(fit: BoxFit.cover,
-                                  child: Text('Contact', style: TextStyle(
-                                          color: greyColor, fontWeight: boldWeight, fontSize: 14)))),
+                          EditTextTemplate(text: 'Contact', height: height * 20, width: width * 60,),
                           SizedBox(width: width * 240),
-                          Container(
-                              height: height * 18,
-                              width: width * 68,
-                              child: FittedBox(fit: BoxFit.cover,
-                                  child: Text('Location', style: TextStyle(
-                                          color: greyColor, fontWeight: boldWeight, fontSize: 14))))
+                          EditTextTemplate(text: 'Location', height: height * 18, width: width * 68,),
                         ]),
                         SizedBox(height: height * 10),
                         Row(children: [
@@ -137,12 +103,7 @@ class EditShipperDetails extends StatelessWidget {
                               focusNode: locationFocusNode)
                         ]),
                         SizedBox(height: height * 30),
-                        Container(
-                            height: height * 18,
-                            width: width * 132,
-                            child: FittedBox(fit: BoxFit.cover,
-                                child: Text('Document image', style: TextStyle(
-                                        color: greyColor, fontWeight: boldWeight, fontSize: 14)))),
+                        EditTextTemplate(text: 'Document image', height: height * 18, width: width * 132,),
                         SizedBox(height: height * 15),
                         Obx(() {
                           return DocumentImageLayout(
@@ -157,26 +118,11 @@ class EditShipperDetails extends StatelessWidget {
                         SizedBox(height: height * 50),
                         Row(mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Container(
-                                  height: height * 18,
-                                  width: width * 121,
-                                  child: FittedBox(fit: BoxFit.cover,
-                                      child: Text('Company Name', style: TextStyle(
-                                              color: greyColor, fontWeight: boldWeight, fontSize: 10)))),
+                              EditTextTemplate(text: 'Company Name', height: height * 18, width: width * 121,),
                               SizedBox(width: width * 269),
-                              Container(
-                                  height: height * 18,
-                                  width: width * 150,
-                                  child: FittedBox(fit: BoxFit.cover,
-                                      child: Text('Shipper Appoval ?', style: TextStyle(
-                                              color: greyColor, fontWeight: boldWeight, fontSize: 14)))),
+                              EditTextTemplate(text: 'Shipper Approval ?', height: height * 18, width: width * 150,),
                               SizedBox(width: width * 150),
-                              Container(
-                                  height: height * 18,
-                                  width: width * 180,
-                                  child: FittedBox(fit: BoxFit.cover,
-                                      child: Text('Account Verification?', style: TextStyle(
-                                              color: greyColor, fontWeight: boldWeight, fontSize: 14))))
+                              EditTextTemplate(text: 'Account Verification?', height: height * 18, width: width * 180,)
                             ]),
                         SizedBox(height: height * 15),
                         Row(mainAxisAlignment: MainAxisAlignment.start,
@@ -194,12 +140,7 @@ class EditShipperDetails extends StatelessWidget {
                               RadioButtonWidget(type: "ShipperAccountVerification")
                             ]),
                         SizedBox(height: height * 50),
-                        Container(
-                            height: height * 18,
-                            width: width * 130,
-                            child: FittedBox(fit: BoxFit.cover,
-                                child: Text('Company Details', style: TextStyle(
-                                        color: greyColor, fontWeight: boldWeight, fontSize: 10)))),
+                        EditTextTemplate(text: 'Company Details', height: height * 18,width: width * 130,),
                         SizedBox(height: height * 16),
                         Obx(() {
                           return CompanyProofLayout(
@@ -218,12 +159,8 @@ class EditShipperDetails extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(radius_3 + 1)),
                                   ),
                                   onPressed: () {},
-                                  child: Container(
-                                      height: height * 18, width: width * 109,
-                                      child: FittedBox(fit: BoxFit.cover,
-                                          child: Text('Save Changes',
-                                              style: TextStyle(fontStyle: FontStyle.normal, color: white,
-                                                  fontSize: 16, fontWeight: regularWeight))))),
+                                  child: EditTitleTextTemplate(text:'Save Changes',height: height * 18, width: width * 109,
+                                     fontSize: 16,fontWeight: regularWeight,fontStyle: FontStyle.normal, color: white,)),
                               SizedBox(width: width * 50),
                               CancelButtonWidget()
                             ])
@@ -232,4 +169,3 @@ class EditShipperDetails extends StatelessWidget {
         ]);
   }
 }
-

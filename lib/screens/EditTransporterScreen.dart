@@ -11,7 +11,9 @@ import 'package:liveasy_admin/controller/TransporterController.dart';
 import 'package:liveasy_admin/functions/updateTransporterStatus.dart';
 import 'package:liveasy_admin/models/transporterApiModel.dart';
 import 'package:liveasy_admin/widgets/cancelButtonWidget.dart';
+import 'package:liveasy_admin/widgets/circularProfileImage.dart';
 import 'package:liveasy_admin/widgets/completeDialog.dart';
+import 'package:liveasy_admin/widgets/editTitleTextTemplete.dart';
 import 'package:liveasy_admin/widgets/radioButtonWidget.dart';
 import 'package:liveasy_admin/widgets/updateScreenCardLayout.dart';
 import 'package:liveasy_admin/widgets/updateScreenTextField.dart';
@@ -55,13 +57,11 @@ class EditTransporterDetails extends StatelessWidget {
     transporterController.updateCompanyProofApproval(transporterDetails.companyApproved! ?1 :2);
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: height * 37),
-        Container(
-            height: height * 40, width: width * 240,alignment: Alignment.topLeft,
-            child: FittedBox(fit: BoxFit.cover,
-                child: Text('Transporter details', style: TextStyle(
-                    fontSize: 32, color: greyColor, fontWeight: regularWeight)))),
+        EditTitleTextTemplate(text:'Transporter details',height:  height * 40,width: width * 240,
+          fontSize: 32,fontWeight: regularWeight,color: greyColor,),
         SizedBox(height: height * 30),
         Card(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
@@ -72,40 +72,17 @@ class EditTransporterDetails extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: height * 46, horizontal: width * 64),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                      height: height * 34, width: width * 230,
-                      child: FittedBox(fit: BoxFit.cover,
-                          child: Text('Edit information', style: TextStyle(fontSize: 28, color: greyColor,
-                              fontWeight: regularWeight)))),
+                  EditTitleTextTemplate(text:'Edit information',height:height * 34,width: width * 230,
+                    fontSize: 28,fontWeight: regularWeight,color: greyColor,),
                   SizedBox(height: height * 35),
-                  Center(
-                      child: Container(
-                          height: height * 63, width: width * 63,
-                          child: FittedBox(fit: BoxFit.cover,
-                              child: dataList[0] != null ? CircleAvatar(backgroundImage: NetworkImage(dataList[0],))
-                                : Image.asset("icons/profile.png")
-                          ))),
+                  Center(child: CircularProfileImage(image:dataList[0], height: height * 63, width: width * 63, ),),
                   SizedBox(height: height * 70),
                   Row(children: [
-                    Container(
-                        height: height * 18, width: width * 48,
-                        child: FittedBox(fit: BoxFit.cover,
-                            child: Text('Name', style: TextStyle(
-                                color: greyColor, fontWeight: boldWeight, fontSize: 14)))),
+                    EditTextTemplate(text: 'Name',height:height * 18 ,width: width * 48,),
                     SizedBox(width: width * 342),
-                    Container(
-                        height: height * 20,
-                        width: width * 60,
-                        child: FittedBox(fit: BoxFit.cover,
-                            child: Text('Contact',
-                                style: TextStyle(color: greyColor, fontWeight: boldWeight, fontSize: 14)))),
+                    EditTextTemplate(text: 'Contact',height:height * 20 ,width: width * 60,),
                     SizedBox(width: width * 240),
-                    Container(
-                        height: height * 18,
-                        width: width * 60,
-                        child: FittedBox(fit: BoxFit.cover,
-                            child: Text('Location', style: TextStyle(
-                                color: greyColor, fontWeight: boldWeight, fontSize: 14))))
+                    EditTextTemplate(text: 'Location',height: height * 18,width: width * 68,),
                   ]),
                   SizedBox(height: height * 10),
                   Row(children: [
@@ -130,10 +107,7 @@ class EditTransporterDetails extends StatelessWidget {
                         focusNode: locationFocusNode)
                   ]),
                   SizedBox(height: height * 30),
-                  Container(height: height * 18, width: width * 132,
-                      child: FittedBox(fit: BoxFit.cover,
-                          child: Text('Document image', style: TextStyle(color: greyColor,
-                                  fontWeight: boldWeight, fontSize: 14)))),
+                  EditTextTemplate(text: 'Document image',height:height * 18,width:width * 132,),
                   SizedBox(height: height * 15),
                   Obx(() {
                     return DocumentImageLayout(
@@ -147,29 +121,11 @@ class EditTransporterDetails extends StatelessWidget {
                   SizedBox(height: height * 50),
                   Row(mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Container(
-                            height: height * 18,
-                            width: width * 121,
-                            child: FittedBox(
-                                fit: BoxFit.cover,
-                                child: Text('Company Name',
-                                    style: TextStyle(color: greyColor, fontWeight: boldWeight, fontSize: 10)))),
+                        EditTextTemplate(text:'Company Name',height: height * 18,width: width * 121,),
                         SizedBox(width: width * 269),
-                        Container(
-                            height: height * 18,
-                            width: width * 180,
-                            child: FittedBox(
-                                fit: BoxFit.cover,
-                                child: Text('Transporter Approval ?',
-                                    style: TextStyle(color: greyColor, fontWeight: boldWeight, fontSize: 10)))),
+                        EditTextTemplate(text:'Transporter Approval ?',height: height * 18,width: width * 150,),
                         SizedBox(width: width * 140),
-                        Container(
-                            height: height * 18,
-                            width: width * 160,
-                            child: FittedBox(
-                                fit: BoxFit.cover,
-                                child: Text('Company Approval ?',
-                                    style: TextStyle(color: greyColor, fontWeight: boldWeight, fontSize: 10))))
+                        EditTextTemplate(text:'Company Approval ?',height: height * 18,width: width * 180,),
                       ]),
                   SizedBox(height: height * 15),
                   Row(mainAxisAlignment: MainAxisAlignment.start,
@@ -186,13 +142,7 @@ class EditTransporterDetails extends StatelessWidget {
                         RadioButtonWidget(type: "TransporterCompanyApprovedStatus")
                       ]),
                   SizedBox(height: height * 50),
-                  Container(
-                      height: height * 18,
-                      width: width * 130,
-                      child: FittedBox(
-                          fit: BoxFit.cover,
-                          child: Text('Company Details',
-                              style: TextStyle(color: greyColor, fontWeight: boldWeight, fontSize: 10)))),
+                  EditTextTemplate(text:'Company Details',height: height * 18,width: width * 130,),
                   SizedBox(height: height * 16),
                   CompanyProofLayout(
                     companyProofApproved: transporterController.companyProofApprovalStatus.value,
@@ -230,15 +180,9 @@ class EditTransporterDetails extends StatelessWidget {
                                   },
                                 );
                                 Timer(Duration(seconds: 3), () => {Navigator.of(context).pop()});
-
-                              }
-                              },
-                            child: Container(
-                                height: height * 18, width: width * 109,
-                                child: FittedBox(fit: BoxFit.cover,
-                                    child: Text('Save Changes',
-                                        style: TextStyle(fontStyle: FontStyle.normal, color: white,
-                                            fontSize: 16, fontWeight: regularWeight))))),
+                              }},
+                            child: EditTitleTextTemplate(text:'Save Changes',height: height * 18, width: width * 109,
+                              fontSize: 16,fontWeight: regularWeight,fontStyle: FontStyle.normal, color: white,)),
                         SizedBox(width: width * 50),
                         CancelButtonWidget()
                       ])],),)),
