@@ -27,7 +27,7 @@ class _RadioButtonWidgetState extends State<RadioButtonWidget> {
       } else if (widget.type == "TransporterApproval") {
         transporterController!.updateOnTransporterApproval(val);
       } else {
-        transporterController!.updateTransporterAccountVerification(val);
+        transporterController!.updateCompanyProofApproval(val);
       }
     });
   }
@@ -50,23 +50,19 @@ class _RadioButtonWidgetState extends State<RadioButtonWidget> {
                       .shipperAccountVerficationInProgress.value)
               : (widget.type == "TransporterApproval"
                   ? transporterController!.transporterApprovalStatus.value
-                  : transporterController!
-                      .transporterAccountVerficationInProgress.value),
+                  : transporterController!.companyProofApproval.value),
           onChanged: (int? val) {
             setSelectedRadio(val!);
           }),
       SizedBox(width: width * 5),
       Container(
-          width: widget.type.endsWith("Approval") ? width * 65 : width * 90,
+          width: width * 60,
           height: height * 20,
           child: FittedBox(
               fit: BoxFit.cover,
               child: widget.type.endsWith("Approval")
-                  ? Text('Approve',
-                      style: TextStyle(color: black, fontFamily: 'montserrat'))
-                  : Text('Completed',
-                      style:
-                          TextStyle(color: black, fontFamily: 'montserrat')))),
+                  ? Text('Verified', style: TextStyle(color: black, fontFamily: 'montserrat'))
+                  : Text('Verified', style: TextStyle(color: black, fontFamily: 'montserrat')))),
       SizedBox(width: width * 20),
       Radio(
           activeColor: black,
@@ -74,27 +70,22 @@ class _RadioButtonWidgetState extends State<RadioButtonWidget> {
           groupValue: widget.type.startsWith("Shipper")
               ? (widget.type == "ShipperApproval"
                   ? shipperController!.shipperApprovalStatus.value
-                  : shipperController!
-                      .shipperAccountVerficationInProgress.value)
+                  : shipperController!.shipperAccountVerficationInProgress.value)
               : (widget.type == "TransporterApproval"
                   ? transporterController!.transporterApprovalStatus.value
-                  : transporterController!
-                      .transporterAccountVerficationInProgress.value),
+                  : transporterController!.companyProofApproval.value),
           onChanged: (int? val) {
             setSelectedRadio(val!);
           }),
       SizedBox(width: width * 5),
       Container(
-          width: widget.type.endsWith("Approval") ? width * 60 : width * 90,
+          width: width * 90,
           height: height * 20,
           child: FittedBox(
               fit: BoxFit.cover,
               child: widget.type.endsWith("Approval")
-                  ? Text('On Halt',
-                      style: TextStyle(color: black, fontFamily: 'montserrat'))
-                  : Text('In Progress',
-                      style:
-                          TextStyle(color: black, fontFamily: 'montserrat'))))
+                  ? Text('Not Verified', style: TextStyle(color: black, fontFamily: 'montserrat'))
+                  : Text('Not Verified', style: TextStyle(color: black, fontFamily: 'montserrat'))))
     ]);
   }
 }

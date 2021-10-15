@@ -9,10 +9,16 @@ import 'package:liveasy_admin/controller/ShipperController.dart';
 import 'package:liveasy_admin/controller/TransporterController.dart';
 
 // ignore: must_be_immutable
-class ApproveButtonWidget extends StatelessWidget {
+class ApproveButtonWidget extends StatefulWidget {
   String type;
   String docType;
   ApproveButtonWidget({required this.type, required this.docType});
+
+  @override
+  State<ApproveButtonWidget> createState() => _ApproveButtonWidgetState();
+}
+
+class _ApproveButtonWidgetState extends State<ApproveButtonWidget> {
   double height = SizeConfig.safeBlockVertical!;
   double width = SizeConfig.safeBlockHorizontal!;
   var controller;
@@ -20,8 +26,8 @@ class ApproveButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: docType == "GST" ? width * 88 : width * 78,
-        height: docType == "GST" ? height * 52 : height * 46,
+        width: widget.docType == "GST" ? width * 88 : width * 78,
+        height: widget.docType == "GST" ? height * 52 : height * 46,
         child: TextButton(
             style: TextButton.styleFrom(
                 backgroundColor: signInColor,
@@ -29,12 +35,11 @@ class ApproveButtonWidget extends StatelessWidget {
                     side: BorderSide(color: signInColor),
                     borderRadius: BorderRadius.circular(radius_3+1))),
             onPressed: () {
-              if (type == "Shipper") {
-                controller = Get.find<ShipperController>();
-              } else {
-                controller = Get.find<TransporterController>();
-              }
-              switch (docType) {
+              print("${widget.docType}");
+              widget.type == "Transporter" ? controller = Get.find<TransporterController>()
+                : controller = Get.find<ShipperController>();
+
+              switch(widget.docType){
                 case "PAN":
                   controller!.updateIdentityProofApprovalStatus(true);
                   break;
@@ -50,14 +55,12 @@ class ApproveButtonWidget extends StatelessWidget {
               }
             },
             child: Container(
-                height: docType == "GST" ? height * 15 : height * 12,
-                width: docType == "GST" ? width * 47 : width * 42,
+                height: widget.docType == "GST" ? height * 15 : height * 12,
+                width: widget.docType == "GST" ? width * 47 : width * 42,
                 child: FittedBox(
-                    fit: BoxFit.cover,
-                    child: Text('Approve',
-                        style: TextStyle(
-                            color: white,
-                            fontSize: 10,
-                            fontWeight: regularWeight))))));
+                    fit: BoxFit.cover, child: Text( 'Approve',
+                        style: TextStyle(color: white, fontSize: 10, fontWeight: regularWeight))
+                )
+            )));
   }
 }

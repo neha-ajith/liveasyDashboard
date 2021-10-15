@@ -56,15 +56,14 @@ class HomeScreenState extends State<HomeScreen>
                   elevation: 1.5,
                   shadowColor: black,
                   child: Container(
-                    width: width * 238,
+                    width: width * 245,
                     child: listDrawerItems(false),
                   )),
               tabController!.index == 0
                   ? SizedBox(width: width * 31)
                   : SizedBox(width: width * 15),
               Container(
-                  width:
-                      tabController!.index == 0 ? width * 1161 : width * 1177,
+                  width: tabController!.index == 0 ? width * 1150 : width * 1167,
                   height: height * 979,
                   child: TabBarView(
                       physics: NeverScrollableScrollPhysics(),

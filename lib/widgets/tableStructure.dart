@@ -30,6 +30,8 @@ class _TableStructureState extends State<TableStructure> {
         dataRowHeight: height * space_16,
         availableRowsPerPage: [8, 15, 25],
         source: widget.dts,
+        columnSpacing: 5,
+        horizontalMargin: 20,
         rowsPerPage: isRowCountLessDefault ? _rowsPerPage : _rowsPerPage1,
         columns: [
           DataColumn(label: Text('')),

@@ -60,6 +60,11 @@ class TransporterController extends GetxController {
     transporterApprovalStatus.value = newValue;
   }
 
+  RxInt companyProofApproval = 0.obs; // 1 - Completed // 2 - Pending
+  void updateCompanyProofApproval(int newValue) {
+    companyProofApproval.value = newValue;
+  }
+
   RxInt transporterCompanyApprovalStatus = 0.obs; // 1 - Approved // 2 - On Halt
   void updateOnTransporterCompanyApproval(int newValue) {
     transporterCompanyApprovalStatus.value = newValue;
