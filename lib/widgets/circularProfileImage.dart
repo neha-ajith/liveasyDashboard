@@ -13,6 +13,7 @@ class CircularProfileImage extends StatelessWidget {
         width: width,
         child: FittedBox(fit: BoxFit.cover,
             child: image != null ? CircleAvatar(backgroundImage: NetworkImage(image!))
-                : Image.asset("icons/profile.png")));
+                :   Icon(Icons.person)//Image.asset("icons/profile.png")
+        ));
   }
 }

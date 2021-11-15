@@ -41,12 +41,13 @@ class TransporterDataSource extends DataTableSource {
                 height: height * 19,
                 width: width * 19,
                 child: FittedBox(
-                    fit: BoxFit.cover, child: Image.asset('icons/edit.png'))),
+                    fit: BoxFit.cover, child: Icon(Icons.edit)//Image.asset('icons/edit.png')
+                )),
             onPressed: () {
               Get.to(UpdateTransporterScreen(transporterDetails: _userdata));
             }),
         SizedBox(width: width * 12),
-        IconButton(
+        /*IconButton(
             icon: Icon(Icons.delete_outlined),
             onPressed: () async {
               dialogBox(
@@ -55,7 +56,7 @@ class TransporterDataSource extends DataTableSource {
                   'Are you sure you want to Delete this User ID.\n This action is non retriveable',
                   _userdata.transporterId!,
                   null);
-            })
+            })*/
       ]))
     ]);
   }
