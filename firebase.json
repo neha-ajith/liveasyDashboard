@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "liveasy",
+    "site": "liveasydashboard-prod",
     "public": "build/web",
     "ignore": [
       "firebase.json",
