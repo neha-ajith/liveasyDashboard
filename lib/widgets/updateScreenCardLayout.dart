@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:liveasy_admin/constants/color.dart';
 import 'package:liveasy_admin/constants/fontWeight.dart';
 import 'package:liveasy_admin/constants/radius.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
+import 'package:liveasy_admin/screens/imageViewer.dart';
 import 'package:liveasy_admin/widgets/approveButtonWidget.dart';
 import 'package:liveasy_admin/widgets/rejectButtonWidget.dart';
 
@@ -44,9 +47,14 @@ class DocumentImageLayout extends StatelessWidget {
                     child: Text('ID Proof',
                         style: TextStyle(color: greyColor, fontWeight: normalWeight, fontSize: 15)))),
             SizedBox(height: height * 20),
-            pan != null
-                ? Container(width: width * 210, height: height * 140, child: Image.network(pan!, fit: BoxFit.fill,))
-                : Container(width: width * 210, height: height * 140, child: Center(child: Text('NO Image Uploaded'))),
+            GestureDetector(
+              onTap: (){
+                Get.to(ImageViewer(docType:'PAN',type: "Transporter",idProof: pan!,idProofApproved: panApproved,));
+              },
+              child: pan != null
+                  ? Container(width: width * 210, height: height * 140, child: Image.network(pan!, fit: BoxFit.fill,))
+                  : Container(width: width * 210, height: height * 140, child: Center(child: Text('NO Image Uploaded'))),
+            ),
             if (pan != null)
               Column(children: [
                 SizedBox(height: height * 15),
@@ -80,12 +88,17 @@ class DocumentImageLayout extends StatelessWidget {
             SizedBox(height: height * 20),
             Row(mainAxisAlignment: MainAxisAlignment.start, children: [
               if (aadhar1 != null)
-                Container(
-                    width: width * 210,
-                    height: height * 140,
-                    child: Image.network(
-                      aadhar1!, fit: BoxFit.cover,
-                    ))
+                GestureDetector(
+                  onTap: (){
+                    Get.to(ImageViewer(docType:'AadharFront',type: "Transporter",idProof: aadhar1!,idProofApproved: aadhar1Approved,));
+                  },
+                  child: Container(
+                      width: width * 210,
+                      height: height * 140,
+                      child: Image.network(
+                        aadhar1!, fit: BoxFit.cover,
+                      )),
+                )
               //FittedBox(fit: BoxFit.cover, child: Image.network(aadhar1!)))
               else
                 Container(
@@ -94,12 +107,17 @@ class DocumentImageLayout extends StatelessWidget {
                     child: Center(child: Text("NO Image Uploaded"))),
               SizedBox(width: width * 20),
               if (aadhar2 != null)
-                Container(
-                    width: width * 210,
-                    height: height * 140,
-                    child: Image.network(
-                      aadhar2!, fit: BoxFit.cover,
-                    ))
+                GestureDetector(
+                  onTap: (){
+                    Get.to(ImageViewer(docType:'AadharBack',type: "Transporter",idProof: aadhar2!,idProofApproved: aadhar2Approved,));
+                  },
+                  child: Container(
+                      width: width * 210,
+                      height: height * 140,
+                      child: Image.network(
+                        aadhar2!, fit: BoxFit.cover,
+                      )),
+                )
               //  FittedBox(fit: BoxFit.cover, child: Image.network(aadhar2!)))
               else
                 Container(
