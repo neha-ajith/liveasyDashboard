@@ -14,7 +14,8 @@ class TransporterDetailsScreen extends StatefulWidget {
       _TransporterDetailsScreenState();
 }
 
-class _TransporterDetailsScreenState extends State<TransporterDetailsScreen> {
+class _TransporterDetailsScreenState extends State<TransporterDetailsScreen>
+    with AutomaticKeepAliveClientMixin<TransporterDetailsScreen>{
   double height = SizeConfig.safeBlockVertical!;
   double width = SizeConfig.safeBlockHorizontal!;
   TransporterController transporterController =
@@ -79,4 +80,8 @@ class _TransporterDetailsScreenState extends State<TransporterDetailsScreen> {
                   }))
             ]));
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

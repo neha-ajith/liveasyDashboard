@@ -13,16 +13,31 @@ import 'package:liveasy_admin/widgets/appBar.dart';
 // ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
   final List<String> userData;
+
   HomeScreen({required this.userData});
+
   @override
   HomeScreenState createState() => HomeScreenState();
 }
 
 class HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
+    with
+        SingleTickerProviderStateMixin,
+        AutomaticKeepAliveClientMixin<HomeScreen> {
   TabController? tabController;
   int active = 0;
+
   //final _myAppBar = MyAppBar();
+
+  //change here
+  var screens = [
+    Dashboard(),
+    ShipperDetailsScreen(),
+    ShipperActivitiesScreen(), //TODO: These Screens are empty
+    TransporterDetailsScreen(),
+    TransporterActivitiesScreen(), //TODO: These Screens are empty
+    GPSDetailsScreen() //TODO: These Screens are empty
+  ];
 
   @override
   void initState() {
@@ -63,19 +78,23 @@ class HomeScreenState extends State<HomeScreen>
                   ? SizedBox(width: width * 31)
                   : SizedBox(width: width * 15),
               Container(
-                  width: tabController!.index == 0 ? width * 1150 : width * 1167,
+                  width:
+                      tabController!.index == 0 ? width * 1150 : width * 1167,
                   height: height * 979,
                   child: TabBarView(
                       physics: NeverScrollableScrollPhysics(),
                       controller: tabController,
-                      children: [
-                        Dashboard(),
-                        ShipperDetailsScreen(),
-                        ShipperActivitiesScreen(), //TODO: These Screens are empty
-                        TransporterDetailsScreen(),
-                        TransporterActivitiesScreen(), //TODO: These Screens are empty
-                        GPSDetailsScreen() //TODO: These Screens are empty
-                      ]))
+                      children: screens
+                      //change here
+                      // [
+                      //   Dashboard(),
+                      //   ShipperDetailsScreen(),
+                      //   ShipperActivitiesScreen(), //TODO: These Screens are empty
+                      //   TransporterDetailsScreen(),
+                      //   TransporterActivitiesScreen(), //TODO: These Screens are empty
+                      //   GPSDetailsScreen() //TODO: These Screens are empty
+                      // ]
+                      ))
             ])));
   }
 
@@ -286,4 +305,8 @@ class HomeScreenState extends State<HomeScreen>
           ]))
     ]);
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
