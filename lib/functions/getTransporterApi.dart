@@ -9,6 +9,7 @@ Future<List<TransporterDetailsModel>> runGetTransporterApi(
   List<String> li = await Future.wait<String>([
     ac.gettransporterurl(),
   ]);
+  print(li);
   final String transporterApiUrl = li[0];
 
   final String additionalQuery = '?transporterApproved=';

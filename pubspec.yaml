@@ -36,6 +36,8 @@ dependencies:
   http: ^0.13.3
   shared_preferences: ^2.0.6
   cloud_firestore: ^2.4.0
+  platform: ^3.1.0
+  intl:
 
 dev_dependencies:
   flutter_dotenv: ^5.0.0
@@ -77,9 +79,9 @@ flutter:
     - family: montserrat
       fonts:
         - asset: fonts/Montserrat-Regular.ttf
-        - asset: fonts/Montserrat-Bold.ttf
-          weight: 700
-        - asset: fonts/Montserrat-ExtraBold.ttf
+        # - asset: fonts/Montserrat-Bold.ttf
+          # weight: 400
+        # - asset: fonts/Montserrat-ExtraBold.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

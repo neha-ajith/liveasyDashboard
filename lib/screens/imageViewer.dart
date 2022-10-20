@@ -5,14 +5,19 @@ import 'package:liveasy_admin/constants/radius.dart';
 import 'package:liveasy_admin/constants/screenSizeConfig.dart';
 import 'package:liveasy_admin/widgets/approveButtonWidget.dart';
 import 'package:liveasy_admin/widgets/cancelButtonWidget.dart';
+import 'package:liveasy_admin/widgets/downloadbuttonwidget.dart';
 import 'package:liveasy_admin/widgets/rejectButtonWidget.dart';
 
 class ImageViewer extends StatelessWidget {
-  String type,docType;
+  String type, docType;
   String? idProof;
   bool idProofApproved;
 
-  ImageViewer({required this.docType,required this.type,required this.idProof,required this.idProofApproved});
+  ImageViewer(
+      {required this.docType,
+      required this.type,
+      required this.idProof,
+      required this.idProofApproved});
 
   // ImageViewer.adhar1(this.aadhar1,{required this.type});
   // ImageViewer.adhar2(this.aadhar2,{required this.type});
@@ -47,13 +52,13 @@ class ImageViewer extends StatelessWidget {
                             width: width * 100,
                             child: FittedBox(
                                 fit: BoxFit.cover,
-                                child: Text('ID Proof',
+                                child: Text('Document',
                                     style: TextStyle(
                                         color: greyColor,
                                         fontWeight: normalWeight,
                                         fontSize: 30)))),
                         SizedBox(height: height * 20),
-                        idProof != null
+                        idProof != 'None'
                             ? Container(
                                 width: width * 800,
                                 height: height * 800,
@@ -64,7 +69,8 @@ class ImageViewer extends StatelessWidget {
                             : Container(
                                 width: width * 210,
                                 height: height * 140,
-                                child: Center(child: Text('NO Image Uploaded'))),
+                                child:
+                                    Center(child: Text('NO Image Uploaded'))),
                         // if (idProof != null)
                         //   Column(children: [
                         //     SizedBox(height: height * 15),
@@ -72,9 +78,17 @@ class ImageViewer extends StatelessWidget {
                         //         ? Center(child: ApproveButtonWidget(type: type, docType: docType.toString().trim()))
                         //         : Center(child: RejectButtonWidget(type: type, docType: docType.toString().trim()))
                         //   ])
-                        Center(child: Padding(
+                        Center(
+                            child: Padding(
                           padding: const EdgeInsets.only(top: 8.0),
-                          child: CancelButtonWidget(),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CancelButtonWidget(),
+                              SizedBox(width: 10),
+                              DownloadButtonWidget(doc: idProof!)
+                            ],
+                          ),
                         ))
                       ])),
             ],

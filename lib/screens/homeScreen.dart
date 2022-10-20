@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:liveasy_admin/screens/bookingDetailsScreen.dart';
 import 'package:liveasy_admin/screens/dashboard.dart';
 import 'package:liveasy_admin/screens/shipperDetailsScreen.dart';
 import 'package:liveasy_admin/screens/shipperActivities.dart';
@@ -36,13 +37,14 @@ class HomeScreenState extends State<HomeScreen>
     ShipperActivitiesScreen(), //TODO: These Screens are empty
     TransporterDetailsScreen(),
     TransporterActivitiesScreen(), //TODO: These Screens are empty
+    BookingDetailsScreen(),
     GPSDetailsScreen() //TODO: These Screens are empty
   ];
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(vsync: this, length: 6, initialIndex: 0)
+    tabController = TabController(vsync: this, length: 7, initialIndex: 0)
       ..addListener(() {
         setState(() {
           active = tabController!.index;
@@ -283,6 +285,34 @@ class HomeScreenState extends State<HomeScreen>
                   : white),
           onPressed: () {
             tabController!.animateTo(5);
+          },
+          child: Row(children: [
+            SizedBox(width: width * 20),
+            Container(
+                height: height * 20,
+                width: width * 20,
+                child: FittedBox(
+                    fit: BoxFit.cover, child: Image.asset('icons/gps.png'))),
+            SizedBox(width: height * 30),
+            Container(
+                height: height * 25,
+                width: width * 81,
+                child: FittedBox(
+                    fit: BoxFit.cover,
+                    child: Text("Booking details",
+                        style: TextStyle(
+                            color: greyColor,
+                            fontWeight: normalWeight,
+                            fontSize: 16))))
+          ])),
+      TextButton(
+          style: TextButton.styleFrom(
+              fixedSize: Size(width * 238, height * 35),
+              backgroundColor: tabController!.index == 6
+                  ? tabSelection.withOpacity(0.20)
+                  : white),
+          onPressed: () {
+            tabController!.animateTo(6);
           },
           child: Row(children: [
             SizedBox(width: width * 20),
